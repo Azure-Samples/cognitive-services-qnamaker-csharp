@@ -1,6 +1,6 @@
 # Cognitive Services QnA Maker Samples in C#
 
-These samples show you how to programmatically create, update, publish, and replace a QnA Maker knowledge base, amongst many other ways to interact with it. All samples are in Python. To view these same samples in other languages:
+These samples show you how to programmatically create, update, publish, and replace a QnA Maker knowledge base, amongst many other ways to interact with it. All samples are in C#. To view these same samples in other languages:
 
 [cognitive-services-qnamaker-java](https://github.com/Azure-Samples/cognitive-services-qnamaker-java)
 
