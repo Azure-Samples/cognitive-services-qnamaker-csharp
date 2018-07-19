@@ -47,7 +47,7 @@ With the exception of creating a new knowledge base, these samples will require 
 * Quickstart: [Create a new knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/create-new-kb-csharp)
 * Quickstart: [Update a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/update-kb-csharp)
 * Quickstart: [Publish a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/publish-kb-csharp)
-
+* More coming soon... in the meantime, refer to [Quickstart for Microsoft QnA Maker API with C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/csharp) for all quickstarts in minimal format.
 
 ## Demo
 
