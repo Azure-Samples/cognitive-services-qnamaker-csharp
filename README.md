@@ -29,13 +29,13 @@ All samples revolve around what you can do with a knowledge base, which is made 
 
 For each sample, a subscription key is required from your Azure Portal account. 
 * To create a new account/resource for QnA Maker, see [Create a Cognitive Services API account in the Azure portal](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-apis-create-account). You may need to 'Search in Marketplace' for QnA Maker if you don't see it in the list given.  
-* For existing accounts, the key can be found in your [Azure Portal](https://ms.portal.azure.com/) dashboard in your QnA Maker resource under Resource Management > Keys. 
+* For existing accounts, the key can be found in your [Azure Portal](https://ms.portal.azure.com/) dashboard in your QnA Maker resource under Resource Management > Keys. You'll need this key to add to your sample before running.
 
 With the exception of creating a new knowledge base, these samples will require your [QnA Maker account](https://www.qnamaker.ai/Home/MyServices) knowledge base ID. 
 
 ### Installation
 
-***More coming soon***
+Create a C# Console App (.NET Framework) in Visual Studio 2017, then add the sample to the main page and run.
 
 ### Quickstart
 
