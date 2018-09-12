@@ -1,6 +1,6 @@
 # Cognitive Services QnA Maker Samples in C#
 
-These samples show you how to programmatically create, update, publish, and replace a QnA Maker knowledge base, amongst many other ways to interact with it. All samples are in C#. To view these same samples in other languages:
+These REST samples show you how to programmatically create, update, publish, and replace a QnA Maker knowledge base, amongst many other ways to interact with it. All samples are in C#. To view these same samples in other languages:
 
 [cognitive-services-qnamaker-java](https://github.com/Azure-Samples/cognitive-services-qnamaker-java)
 
@@ -20,7 +20,7 @@ Included are the following samples:
 * [Download knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/download-knowledge-base.cs). Download the contents of your existing knowledge base in JSON.
 * [Delete knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-csharp/blob/master/delete-knowledge-base.cs). Deletes an existing knowledge base.
 
-All samples revolve around what you can do with a knowledge base, which is made up of FAQs or product manuals where there is a question and an answer. QnA Maker gives you more control over how to answer questions by allowing you to train a chat bot to give answers in a variety of ways that feels more like natural, conversational exchanges.
+All REST samples revolve around what you can do with a knowledge base, which is made up of FAQs or product manuals where there is a question and an answer. QnA Maker gives you more control over how to answer questions by allowing you to train a chat bot to give answers in a variety of ways that feels more like natural, conversational exchanges.
 
 <img src="https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/media/botFrameworkArch.png" width="700">
 
