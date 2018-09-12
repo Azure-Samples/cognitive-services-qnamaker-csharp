@@ -33,11 +33,17 @@ For each sample, a subscription key is required from your Azure Portal account.
 
 With the exception of creating a new knowledge base, these samples will require your [QnA Maker account](https://www.qnamaker.ai/Home/MyServices) knowledge base ID. 
 
-### Installation
+### Run sample
 
-1. Create a C# Console App (.NET Framework) in Visual Studio 2017, then add the sample to Program.cs.
+1. Create a C# Console App (.NET Framework) in Visual Studio 2017, then add the sample you want to try to Program.cs. For example, if you want to try create-new-knowledge-base.cs. Copy/paste the code from there into your Program.cs.
 
-1. Install the Newtonsoft.Json NuGet package, then run the sample.
+1. You can either create one console app per sample, or add a bunch of samples to one console app as projects, then run them separately.
+
+1. Install the Newtonsoft.Json NuGet package.
+
+1. Read the comments in the code sample to see where you add your keys.
+
+1. Run the sample.
 
 ### Quickstart
 
