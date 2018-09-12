@@ -35,7 +35,9 @@ With the exception of creating a new knowledge base, these samples will require 
 
 ### Installation
 
-Create a C# Console App (.NET Framework) in Visual Studio 2017, then add the sample to the main page and run.
+1. Create a C# Console App (.NET Framework) in Visual Studio 2017, then add the sample to Program.cs.
+
+1. Install the Newtonsoft.Json NuGet package, then run the sample.
 
 ### Quickstart
 
