@@ -13,12 +13,12 @@ These REST samples show you how to programmatically create, update, publish, and
 
 Included are the following samples:
 
-* [Create knowledge base](quickstarts/create-bk/QnaMakerQuickstart/Program.cs). Create a brand new knowledge base with given FAQ URLs. 
-* [Update knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/update-knowledge-base.cs). Update an existing knowledge base by changing its name.
-* [Publish knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/publish-knowledge-base.cs). Publish any existing knowledge base to the host your Azure account.
-* [Replace knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/replace-knowledge-base.cs). Replace an entire existing knowledge base with a custom question/answer pair.
-* [Download knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/download-knowledge-base.cs). Download the contents of your existing knowledge base in JSON.
-* [Delete knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-csharp/blob/master/delete-knowledge-base.cs). Deletes an existing knowledge base.
+* [Create knowledge base](documentation-samples/quickstarts/create-knowledge-base/QnaMakerQuickstart/Program.cs). Create a brand new knowledge base with given FAQ URLs. 
+* [Update knowledge base](documentation-samples/quickstarts/update-knowledge-base/QnaMakerQuickstart/Program.cs). Update an existing knowledge base by changing its name.
+* [Publish knowledge base](documentation-samples/quickstarts/publish-knowledge-base/QnaMakerQuickstart/Program.cs). Publish any existing knowledge base to the host your Azure account.
+* [Replace knowledge base](replace-knowledge-base.cs). Replace an entire existing knowledge base with a custom question/answer pair.
+* [Download knowledge base](download-knowledge-base.cs). Download the contents of your existing knowledge base in JSON.
+* [Delete knowledge base](delete-knowledge-base.cs). Deletes an existing knowledge base.
 
 All REST samples revolve around what you can do with a knowledge base, which is made up of FAQs or product manuals where there is a question and an answer. QnA Maker gives you more control over how to answer questions by allowing you to train a chat bot to give answers in a variety of ways that feels more like natural, conversational exchanges.
 
@@ -50,10 +50,14 @@ With the exception of creating a new knowledge base, these samples will require 
 
 ### Quickstart
 
-* Quickstart: [Create a new knowledge base in C#](quickstarts/create-bk/QnaMakerQuickstart/Program.cs)
-* Quickstart: [Update a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/update-kb-csharp)
-* Quickstart: [Publish a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/publish-kb-csharp)
+* Quickstart: [Create a new knowledge base in C#](documentation-samples/quickstarts/create-knowledge-base/QnaMakerQuickstart/Program.cs)
+* Quickstart: [Update a knowledge base in C#](documentation-samples/quickstarts/update-knowledge-base/QnaMakerQuickstart/Program.cs)
+* Quickstart: [Publish a knowledge base in C#](documentation-samples/quickstarts/publish-knowledge-base/QnaMakerQuickstart/Program.cs)
 * More quickstarts coming soon... in the meantime, refer to [Quickstart for Microsoft QnA Maker API with C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/csharp) for all quickstarts in minimal format.
+
+### Web app bot
+
+* How-to: [Integrate LUIS with QnA Maker with Web app bot 3.x](documentation-samples/bot-luis-qnamaker/readme.md)
 
 ## References
 
