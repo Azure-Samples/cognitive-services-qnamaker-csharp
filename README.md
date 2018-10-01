@@ -13,7 +13,7 @@ These REST samples show you how to programmatically create, update, publish, and
 
 Included are the following samples:
 
-* [Create knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/create-new-knowledge-base.cs). Create a brand new knowledge base with given FAQ URLs. You may supply your own.
+* [Create knowledge base](quickstarts/create-bk/QnaMakerQuickstart/Program.cs). Create a brand new knowledge base with given FAQ URLs. 
 * [Update knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/update-knowledge-base.cs). Update an existing knowledge base by changing its name.
 * [Publish knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/publish-knowledge-base.cs). Publish any existing knowledge base to the host your Azure account.
 * [Replace knowledge base](https://github.com/Azure-Samples/cognitive-services-qnamaker-python/blob/master/replace-knowledge-base.cs). Replace an entire existing knowledge base with a custom question/answer pair.
@@ -50,7 +50,7 @@ With the exception of creating a new knowledge base, these samples will require 
 
 ### Quickstart
 
-* Quickstart: [Create a new knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/create-new-kb-csharp)
+* Quickstart: [Create a new knowledge base in C#](quickstarts/create-bk/QnaMakerQuickstart/Program.cs)
 * Quickstart: [Update a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/update-kb-csharp)
 * Quickstart: [Publish a knowledge base in C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/publish-kb-csharp)
 * More quickstarts coming soon... in the meantime, refer to [Quickstart for Microsoft QnA Maker API with C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/csharp) for all quickstarts in minimal format.
