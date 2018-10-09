@@ -150,12 +150,7 @@ namespace QnaMakerQuickstart
                 return new Response(response.Headers, responseBody);
             }
         }
-        /*
-        static void CreateKB()
-        {
-            CreateKBAsync().Wait();
-        }
-        */
+
         /// <summary>
         /// Creates a knowledge base, periodically checking status 
         /// until the knowledge base is created.
