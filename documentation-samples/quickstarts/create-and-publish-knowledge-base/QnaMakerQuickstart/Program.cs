@@ -18,10 +18,14 @@ namespace QnaMakerQuickstart
         // for QnA Maker operations.
         static string host = "https://westus.api.cognitive.microsoft.com";
         static string service = "/qnamaker/v4.0";
-        static string method = "/knowledgebases/create";
+        static string methodCreate = "/knowledgebases/create";
+        static string methodPublish = "/knowledgebases/";
 
         // NOTE: Replace this value with a valid QnA Maker subscription key.
-        static string key = "<qna-maker-subscription-key>";
+        static string key = "ADD KEY HERE";
+
+        // NOTE: The KB ID will be returned from the GetStatus call
+        static string kbid = "";
 
         /// <summary>
         /// Defines the data source used to create the knowledge base.
@@ -29,9 +33,9 @@ namespace QnaMakerQuickstart
         /// the URL for the QnA Maker FAQ article, and 
         /// the URL for the Azure Bot Service FAQ article.
         /// </summary>
-        static string kb = @"
+        static string kb_model = @"
 {
-  'name': 'QnA Maker FAQ from quickstart for update - take 2',
+  'name': 'QnA Maker FAQ from quickstart',
   'qnaList': [
     {
       'id': 0,
@@ -49,8 +53,8 @@ namespace QnaMakerQuickstart
     }
   ],
   'urls': [
-    'https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs'
-
+    'https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs',
+    'https://docs.microsoft.com/en-us/bot-framework/resources-bot-framework-faq'
   ],
   'files': []
 }
@@ -85,16 +89,16 @@ namespace QnaMakerQuickstart
         /// <summary>
         /// Creates a knowledge base.
         /// </summary>
-        /// <param name="kb">The data source for the knowledge base.</param>
+        /// <param name="kb_model_definition">The data source for the knowledge base.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task{TResult}(QnAMaker.Program.Response)"/> 
         /// object that represents the HTTP response."</returns>
         /// <remarks>The method constructs the URI to create a knowledge base in QnA Maker, and then
         /// asynchronously invokes the <see cref="QnAMaker.Program.Post(string, string)"/> method
         /// to send the HTTP request.</remarks>
-        async static Task<Response> PostCreateKB(string kb)
+        async static Task<Response> PostCreateKB(string uri, string kb_model_definition)
         {
             // Builds the HTTP request URI.
-            string uri = host + service + method;
+            //string uri = host + service + method;
 
             // Writes the HTTP request URI to the console, for display purposes.
             Console.WriteLine("Calling " + uri + ".");
@@ -106,7 +110,7 @@ namespace QnaMakerQuickstart
             {
                 request.Method = HttpMethod.Post;
                 request.RequestUri = new Uri(uri);
-                request.Content = new StringContent(kb, Encoding.UTF8, "application/json");
+                request.Content = new StringContent(kb_model_definition, Encoding.UTF8, "application/json");
                 request.Headers.Add("Ocp-Apim-Subscription-Key", key);
 
                 var response = await client.SendAsync(request);
@@ -146,17 +150,25 @@ namespace QnaMakerQuickstart
                 return new Response(response.Headers, responseBody);
             }
         }
-
+        /*
+        static void CreateKB()
+        {
+            CreateKBAsync().Wait();
+        }
+        */
         /// <summary>
         /// Creates a knowledge base, periodically checking status 
         /// until the knowledge base is created.
         /// </summary>
-        async static void CreateKB()
+        async static Task CreateKB()
         {
             try
             {
+                // Builds the HTTP request URI.
+                string uri = host + service + methodCreate;
+
                 // Starts the QnA Maker operation to create the knowledge base.
-                var response = await PostCreateKB(kb);
+                var response = await PostCreateKB(uri, kb_model);
 
                 // Retrieves the operation ID, so the operation's status can be
                 // checked periodically.
@@ -197,28 +209,29 @@ namespace QnaMakerQuickstart
                     else
                     {
                         // QnA Maker has completed creating the knowledge base. 
+                        // Get the kb ID from the resourceLocation header
+                        // resourceLocation returns the full route to the KB
+                        // remote the repetitive route to get the kb ID
+                        kbid = fields["resourceLocation"].Replace("/knowledgebases/","");
                         done = true;
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 // An error occurred while creating the knowledge base. Ensure that
                 // you included your QnA Maker subscription key where directed in the sample.
                 Console.WriteLine("An error occurred while creating the knowledge base.");
             }
-            finally
-            {
-                Console.WriteLine("Press any key to continue.");
-            }
-
         }
-        async static void PublishKB()
+
+        async static Task PublishKB()
         {
             string responseText;
 
-            var uri = host + service + method + kb;
+            var uri = host + service + methodPublish + kbid;
             Console.WriteLine("Calling " + uri + ".");
+
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
             {
@@ -246,11 +259,11 @@ namespace QnaMakerQuickstart
             // Invoke the CreateKB() method to create a knowledge base, periodically 
             // checking the status of the QnA Maker operation until the 
             // knowledge base is created.
-            CreateKB();
+            CreateKB().Wait();
 
             // Publish KB. This doesn't return a polling location so there is no
             // need to check status. 
-            PublishKB();
+            PublishKB().Wait();
 
             // The console waits for a key to be pressed before closing.
             Console.ReadLine();

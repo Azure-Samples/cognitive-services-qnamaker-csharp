@@ -14,10 +14,10 @@ namespace QnAMakerQuickstart
         static string method = "/knowledgebases/";
 
         // NOTE: Replace this with a valid subscription key.
-        static string key = "<qna-maker-subscription-key>";
+        static string key = "ADD KEY HERE";
 
         // NOTE: Replace this with a valid knowledge base ID.
-        static string kb = "<qna-maker-knowledge-base-id>";
+        static string kb = "ADD KB ID HERE";
 
         static string PrettyPrint(string s)
         {

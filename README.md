@@ -13,9 +13,9 @@ These REST samples show you how to programmatically create, update, publish, and
 
 Included are the following samples:
 
-* [Create knowledge base](documentation-samples/quickstarts/create-knowledge-base/QnaMakerQuickstart/Program.cs). Create a brand new knowledge base with given FAQ URLs. 
-* [Update knowledge base](documentation-samples/quickstarts/update-knowledge-base/QnaMakerQuickstart/Program.cs). Update an existing knowledge base by changing its name.
-* [Publish knowledge base](documentation-samples/quickstarts/publish-knowledge-base/QnaMakerQuickstart/Program.cs). Publish any existing knowledge base to the host your Azure account.
+* [Create knowledge base](create-knowledge-base.cs). Create a brand new knowledge base with given FAQ URLs. 
+* [Update knowledge base](update-knowledge-base.cs). Update an existing knowledge base by changing its name.
+* [Publish knowledge base](publish-knowledge-base.cs). Publish any existing knowledge base to the host your Azure account.
 * [Replace knowledge base](replace-knowledge-base.cs). Replace an entire existing knowledge base with a custom question/answer pair.
 * [Download knowledge base](download-knowledge-base.cs). Download the contents of your existing knowledge base in JSON.
 * [Delete knowledge base](delete-knowledge-base.cs). Deletes an existing knowledge base.
@@ -50,9 +50,9 @@ With the exception of creating a new knowledge base, these samples will require 
 
 ### Quickstart
 
-* Quickstart: [Create a new knowledge base in C#](documentation-samples/quickstarts/create-knowledge-base/QnaMakerQuickstart/Program.cs)
-* Quickstart: [Update a knowledge base in C#](documentation-samples/quickstarts/update-knowledge-base/QnaMakerQuickstart/Program.cs)
-* Quickstart: [Publish a knowledge base in C#](documentation-samples/quickstarts/publish-knowledge-base/QnaMakerQuickstart/Program.cs)
+* Quickstart: [Create a new knowledge base in C#](create-knowledge-base.cs)
+* Quickstart: [Update a knowledge base in C#](update-knowledge-base.cs)
+* Quickstart: [Publish a knowledge base in C#](publish-knowledge-base.cs)
 * More quickstarts coming soon... in the meantime, refer to [Quickstart for Microsoft QnA Maker API with C#](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/quickstarts/csharp) for all quickstarts in minimal format.
 
 ### Web app bot

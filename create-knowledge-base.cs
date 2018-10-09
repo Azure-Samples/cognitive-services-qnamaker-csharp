@@ -21,7 +21,7 @@ namespace QnaMakerQuickstart
         static string method = "/knowledgebases/create";
 
         // NOTE: Replace this value with a valid QnA Maker subscription key.
-        static string key = "<qna-maker-subscription-key>";
+        static string key = "ADD KEY HERE";
 
         /// <summary>
         /// Defines the data source used to create the knowledge base.
