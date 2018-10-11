@@ -12,27 +12,51 @@ using Newtonsoft.Json;
 
 namespace QnaMakerQuickstart
 {
+    public class KBDetails
+    {
+        public string id;
+        public string hostName;
+        public string lastAccessedTimestamp;
+        public string lastChangedTimestamp;
+        public string lastPublishedTimestamp;
+        public string name;
+        public string userId;
+        public string[] urls;
+        public string[] sources;
+    }
+
     class Program
     {
         // Represents the various elements used to create HTTP request URIs
         // for QnA Maker operations.
         static string host = "https://westus.api.cognitive.microsoft.com";
+
+        // Management APIs postpend the version to the route
         static string service = "/qnamaker/v4.0";
-        static string methodCreate = "/knowledgebases/create";
-        static string methodPublish = "/knowledgebases/";
 
-        // NOTE: Replace this value with a valid QnA Maker subscription key.
-        static string key = "ADD KEY HERE";
+        // Management route - postpend when KBID is known
+        static string baseRoute = "/knowledgebases";
 
-        // NOTE: The KB ID will be returned from the GetStatus call
+        // Answer API does not use version in route
+        static string endpointService = "/qnamaker";
+
+        // Answer route
+        static string generateAnswerRoute = "/generateAnswer";
+
+        // NOTE: Replace this value with a valid QnA Maker subscription key found in 
+        // Azure portal for QnA Maker resource.
+        static string key = "Qna Maker Resource Key";
+
+        // NOTE: The KB ID is found in GetStatus() call
         static string kbid = "";
 
-        /// <summary>
-        /// Defines the data source used to create the knowledge base.
-        /// The data source includes a QnA pair, with metadata, 
-        /// the URL for the QnA Maker FAQ article, and 
-        /// the URL for the Azure Bot Service FAQ article.
-        /// </summary>
+        // NOTE: The endpoint key is found in GetEndpointKeys() call
+        static string endpoint_key = "";
+
+        // NOTE: The host name is found in GetKnowledgeBaseHostNameDetails() call
+        static string endpoint_host = "";
+
+        // NOTE: KB model defintion
         static string kb_model = @"
 {
   'name': 'QnA Maker FAQ from quickstart',
@@ -60,9 +84,6 @@ namespace QnaMakerQuickstart
 }
 ";
 
-        /// <summary>
-        /// Represents the HTTP response returned by an HTTP request.
-        /// </summary>
         public struct Response
         {
             public HttpResponseHeaders headers;
@@ -75,36 +96,36 @@ namespace QnaMakerQuickstart
             }
         }
 
-        /// <summary>
-        /// Formats and indents JSON for display.
-        /// </summary>
-        /// <param name="s">The JSON to format and indent.</param>
-        /// <returns>A string containing formatted and indented JSON.</returns>
+        // Diplay JSON in readable format
         static string PrettyPrint(string s)
         {
             return JsonConvert.SerializeObject(JsonConvert.DeserializeObject(s), Formatting.Indented);
         }
 
+        // Generic GET method for QnA Maker
+        // Used to:
+        //      get operation status
+        //      get KB details
+        //      get KB endpoints
+        async static Task<Response> Get(string uri)
+        {
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(uri);
+                request.Headers.Add("Ocp-Apim-Subscription-Key", key);
 
-        /// <summary>
-        /// Creates a knowledge base.
-        /// </summary>
-        /// <param name="kb_model_definition">The data source for the knowledge base.</param>
-        /// <returns>A <see cref="System.Threading.Tasks.Task{TResult}(QnAMaker.Program.Response)"/> 
-        /// object that represents the HTTP response."</returns>
-        /// <remarks>The method constructs the URI to create a knowledge base in QnA Maker, and then
-        /// asynchronously invokes the <see cref="QnAMaker.Program.Post(string, string)"/> method
-        /// to send the HTTP request.</remarks>
+                var response = await client.SendAsync(request);
+                var responseBody = await response.Content.ReadAsStringAsync();
+                return new Response(response.Headers, responseBody);
+            }
+        }
+        // Create KB POST method, passes model definition in request body
         async static Task<Response> PostCreateKB(string uri, string kb_model_definition)
         {
-            // Builds the HTTP request URI.
-            //string uri = host + service + method;
+            Console.WriteLine("Create KB " + uri + ".");
 
-            // Writes the HTTP request URI to the console, for display purposes.
-            Console.WriteLine("Calling " + uri + ".");
-
-            // Asynchronously invokes the Post(string, string) method, using the
-            // HTTP request URI and the specified data source.
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
             {
@@ -118,49 +139,28 @@ namespace QnaMakerQuickstart
                 return new Response(response.Headers, responseBody);
             }
         }
-
-        /// <summary>
-        /// Gets the status of the specified QnA Maker operation.
-        /// </summary>
-        /// <param name="operation">The QnA Maker operation to check.</param>
-        /// <returns>A <see cref="System.Threading.Tasks.Task{TResult}(QnAMaker.Program.Response)"/> 
-        /// object that represents the HTTP response."</returns>
-        /// <remarks>The method constructs the URI to get the status of a QnA Maker operation, and
-        /// then asynchronously invokes the <see cref="QnAMaker.Program.Get(string)"/> method
-        /// to send the HTTP request.</remarks>
+        // Get Create operation status
         async static Task<Response> GetStatus(string operationID)
         {
             // Builds the HTTP request URI.
             string uri = host + service + operationID;
 
-            // Writes the HTTP request URI to the console, for display purposes.
-            Console.WriteLine("Calling " + uri + ".");
+            Console.WriteLine("Get Status " + uri + ".");
 
-            // Asynchronously invokes the Get(string) method, using the
-            // HTTP request URI.
-            using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage())
-            {
-                request.Method = HttpMethod.Get;
-                request.RequestUri = new Uri(uri);
-                request.Headers.Add("Ocp-Apim-Subscription-Key", key);
-
-                var response = await client.SendAsync(request);
-                var responseBody = await response.Content.ReadAsStringAsync();
-                return new Response(response.Headers, responseBody);
-            }
+            return await Get(uri);
         }
-
-        /// <summary>
-        /// Creates a knowledge base, periodically checking status 
-        /// until the knowledge base is created.
-        /// </summary>
+        // Create KB is the process of sending the request
+        // then polling to verify success or failure of the request
+        // 
+        // Polling is not request with the same URI
+        // When the operation completes, the KB ID is returned
+        // in the operation status details.
         async static Task CreateKB()
         {
             try
             {
                 // Builds the HTTP request URI.
-                string uri = host + service + methodCreate;
+                string uri = host + service + baseRoute + "/create";
 
                 // Starts the QnA Maker operation to create the knowledge base.
                 var response = await PostCreateKB(uri, kb_model);
@@ -168,6 +168,8 @@ namespace QnaMakerQuickstart
                 // Retrieves the operation ID, so the operation's status can be
                 // checked periodically.
                 var operation = response.headers.GetValues("Location").First();
+
+                Console.WriteLine("OperationID " + operation);
 
                 // Displays the JSON in the HTTP response returned by the 
                 // PostCreateKB(string) method.
@@ -192,6 +194,9 @@ namespace QnaMakerQuickstart
 
                     // Gets and checks the state of the operation.
                     String state = fields["operationState"];
+
+                    Console.WriteLine("Operation State " + state);
+
                     if (state.CompareTo("Running") == 0 || state.CompareTo("NotStarted") == 0)
                     {
                         // QnA Maker is still creating the knowledge base. The thread is 
@@ -208,6 +213,7 @@ namespace QnaMakerQuickstart
                         // resourceLocation returns the full route to the KB
                         // remote the repetitive route to get the kb ID
                         kbid = fields["resourceLocation"].Replace("/knowledgebases/","");
+                        Console.WriteLine("KB ID " + kbid);
                         done = true;
                     }
                 }
@@ -219,13 +225,16 @@ namespace QnaMakerQuickstart
                 Console.WriteLine("An error occurred while creating the knowledge base.");
             }
         }
-
+        // Publish KB, only status is returned. To determine the endpoint and host name
+        // to pass a question to the KB, you must use other APIs
+        //      Get knowledge base details -- host name
+        //      Get endpoint
         async static Task PublishKB()
         {
             string responseText;
 
-            var uri = host + service + methodPublish + kbid;
-            Console.WriteLine("Calling " + uri + ".");
+            var uri = host + service + baseRoute + "/" + kbid;
+            Console.WriteLine("Publish KB " + uri + ".");
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage())
@@ -247,7 +256,62 @@ namespace QnaMakerQuickstart
                 }
             }
             Console.WriteLine(PrettyPrint(responseText));
-            Console.WriteLine("Press any key to continue.");
+        }
+        // Get KB details contains the host name
+        async static Task GetKnowledgeBaseHostNameDetails()
+        {
+            var uri = host + service + baseRoute + "/" + kbid;
+
+            Console.WriteLine("Get KB details " + uri + ".");
+
+            var response = await Get(uri);
+
+            // the endpoint key is the same endpoint key for all KBs associated with this QnA Maker service key
+            var details = JsonConvert.DeserializeObject<KBDetails>(response.response);
+            endpoint_host = details.hostName;
+            Console.WriteLine("Endpoint host name " + endpoint_host + ".");
+        }
+        // Get KB endpoint keys returns authorization key required to pass a question
+        async static Task GetEndpointKeys()
+        {
+            // notice that this uri doesn't change based on KB ID
+            var uri = host + service + "/endpointkeys";
+
+            Console.WriteLine("Get KB endpoints " + uri + ".");
+
+            var response = await Get(uri);
+
+            // the endpoint key is the same endpoint key for all KBs associated with this QnA Maker service key
+            var fields = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.response);
+            endpoint_key = fields["primaryEndpointKey"];
+            Console.WriteLine("Primary endpoint " + endpoint_key + ".");
+
+        }
+        // Pass question and get top answer
+        async static Task GetAnswer(string question)
+        {
+
+            var uri = endpoint_host + endpointService + baseRoute + "/" + kbid + "/generateAnswer";
+
+            Console.WriteLine("Get answers " + uri + ".");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(uri);
+                request.Content = new StringContent("{question:'" + question + "'}", Encoding.UTF8, "application/json");
+
+                // NOTE: The value of the header contains the string/text 'EndpointKey ' with the trailing space
+                request.Headers.Add("Authorization", "EndpointKey " + endpoint_key);
+
+                var response = await client.SendAsync(request);
+                var responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(PrettyPrint(responseBody));
+
+            }
+
+            
         }
         static void Main(string[] args)
         {
@@ -259,6 +323,14 @@ namespace QnaMakerQuickstart
             // Publish KB. This doesn't return a polling location so there is no
             // need to check status. 
             PublishKB().Wait();
+
+            // Get endpoint host name
+            GetKnowledgeBaseHostNameDetails().Wait();
+
+            GetEndpointKeys().Wait();
+
+            // Get the top answer to a question
+            GetAnswer("What languages does QnA Maker support?").Wait();
 
             // The console waits for a key to be pressed before closing.
             Console.ReadLine();
