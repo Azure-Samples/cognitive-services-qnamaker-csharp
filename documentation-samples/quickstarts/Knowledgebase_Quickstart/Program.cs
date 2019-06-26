@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Tasks Included
  * 1. Create a knowledgebase
  * 2. Update a knowledgebase
@@ -8,6 +8,11 @@
  */
 namespace Knowledgebase_Quickstart
 {
+    /* To run this sample:
+     * 1. Install the Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker NuGet package.
+     * 2. Make sure you have updated all NuGet packages for your solution to the latest versions.
+     * 3. Set/export the QNAMAKER_SUBSCRIPTION_KEY and QNAMAKER_REGION environment variables.
+     */
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
     using System;
@@ -25,8 +30,9 @@ namespace Knowledgebase_Quickstart
         static async Task Run()
         {
             var subscriptionKey = Environment.GetEnvironmentVariable("QNAMAKER_SUBSCRIPTION_KEY");
+            var region = Environment.GetEnvironmentVariable("QNAMAKER_REGION");
 
-            var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
+            var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://" + region + ".api.cognitive.microsoft.com" };
 
             // Create a KB
             Console.WriteLine("Creating KB...");
@@ -63,6 +69,8 @@ namespace Knowledgebase_Quickstart
             // END - Delete a knowledgebase
             Console.WriteLine("KB Deleted.");
 
+            Console.WriteLine("Press any key to finish.");
+            Console.Read();
         }
 
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
@@ -123,7 +131,7 @@ namespace Knowledgebase_Quickstart
 
             if (operation.OperationState != OperationStateType.Succeeded)
             {
-                throw new Exception($"Operation {operation.OperationId} failed to completed.");
+                throw new Exception($"Operation {operation.OperationId} failed to complete.");
             }
             return operation;
         }
