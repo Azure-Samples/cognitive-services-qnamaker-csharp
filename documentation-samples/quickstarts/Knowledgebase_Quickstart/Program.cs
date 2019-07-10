@@ -75,19 +75,31 @@ namespace Knowledgebase_Quickstart
         // <CreateKB>
         private static async Task<string> CreateSampleKb(IQnAMakerClient client)
         {
-            var qna = new QnADTO
+            var qna1 = new QnADTO
             {
                 Answer = "You can use our REST APIs to manage your knowledge base.",
                 Questions = new List<string> { "How do I manage my knowledgebase?" },
-                Metadata = new List<MetadataDTO> { new MetadataDTO { Name = "Category", Value = "api" } }
+                Metadata = new List<MetadataDTO> { new MetadataDTO { Name = "Category", Value = "api" } }    
+            };
+            
+            var file1 = new FileDTO
+            {
+                FileName="myFileName",
+                FileUri="https://mydomain/myfile.md"
+
             };
 
-            var urls = new List<string> { "https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs" };
+            var urls = new List<string> {
+                "https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs"
+            };
+
             var createKbDto = new CreateKbDTO
             {
-                Name = "QnA Maker FAQ from quickstart",
-                QnaList = new List<QnADTO> { qna },
+                Name = "QnA Maker FAQ from c# quickstart",
+                QnaList = new List<QnADTO> { qna1 },
+                //Files = new List<FileDTO> { file1 },
                 Urls = urls
+
             };
 
             var createOp = await client.Knowledgebase.CreateAsync(createKbDto);
