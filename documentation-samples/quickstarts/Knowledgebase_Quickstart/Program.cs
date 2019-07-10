@@ -60,27 +60,21 @@ namespace Knowledgebase_Quickstart
         // <UpdateKB>
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
         {
-            /*
-             * QnAMaker API - Update a knowledgebase
-             */
+            // Update kb
             var updateOp = await client.Knowledgebase.UpdateAsync(kbId, new UpdateKbOperationDTO
             {
+                // Create JSON of changes 
                 Add = new UpdateKbOperationDTOAdd { QnaList = new List<QnADTO> { new QnADTO { Questions = new List<string> { "bye" }, Answer = "goodbye" } } }
             });
 
             // Loop while operation is success
             updateOp = await MonitorOperation(client, updateOp);
-
-            // END - Update a knowledgebase
         }
         // </UpdateKB>
 
         // <CreateKB>
         private static async Task<string> CreateSampleKb(IQnAMakerClient client)
         {
-            /*
-             * QnAMaker API - Create a knowledgebase
-             */
             var qna = new QnADTO
             {
                 Answer = "You can use our REST APIs to manage your knowledge base.",
@@ -98,8 +92,6 @@ namespace Knowledgebase_Quickstart
 
             var createOp = await client.Knowledgebase.CreateAsync(createKbDto);
             createOp = await MonitorOperation(client, createOp);
-
-            // END - Create a knowledgebase
 
             return createOp.ResourceLocation.Replace("/knowledgebases/", string.Empty);
         }
