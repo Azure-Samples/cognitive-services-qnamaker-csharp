@@ -8,15 +8,18 @@
  */
 namespace Knowledgebase_Quickstart
 {
+    // <Dependencies>
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    // </Dependencies>
 
     class Program
     {
+        // <MainAndRunMethods>
         static void Main(string[] args)
         {
             Run().Wait();
@@ -43,7 +46,7 @@ namespace Knowledgebase_Quickstart
             await client.Knowledgebase.PublishAsync(kbId);
             Console.WriteLine("KB Published.");
 
-
+            // <DownloadKB>
             // Download the KB
             Console.Write("Downloading KB...");
             /*
@@ -53,7 +56,9 @@ namespace Knowledgebase_Quickstart
 
             // END - Download a knowledgebase
             Console.WriteLine("KB Downloaded. It has {0} QnAs.", kbData.QnaDocuments.Count);
+            // </DownloadKB>
 
+            // <DeleteKB>
             // Delete the KB
             Console.Write("Deleting KB...");
             /*
@@ -62,9 +67,13 @@ namespace Knowledgebase_Quickstart
             await client.Knowledgebase.DeleteAsync(kbId);
             // END - Delete a knowledgebase
             Console.WriteLine("KB Deleted.");
+            // </DeleteKB>
+
 
         }
+        // </MainAndRunMethods>
 
+        // <UpdateKB>
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
         {
             /*
@@ -80,7 +89,9 @@ namespace Knowledgebase_Quickstart
 
             // END - Update a knowledgebase
         }
+        // </UpdateKB>
 
+        // <CreateKB>
         private static async Task<string> CreateSampleKb(IQnAMakerClient client)
         {
             /*
@@ -108,7 +119,9 @@ namespace Knowledgebase_Quickstart
 
             return createOp.ResourceLocation.Replace("/knowledgebases/", string.Empty);
         }
+        // </CreateKB>
 
+        // <MonitorOperation>
         private static async Task<Operation> MonitorOperation(IQnAMakerClient client, Operation operation)
         {
             // Loop while operation is success
@@ -127,5 +140,6 @@ namespace Knowledgebase_Quickstart
             }
             return operation;
         }
+        // <MonitorOperation>        
     }
 }
