@@ -64,8 +64,7 @@ namespace Knowledgebase_Quickstart
             var updateOp = await client.Knowledgebase.UpdateAsync(kbId, new UpdateKbOperationDTO
             {
                 // Create JSON of changes 
-                Add = new UpdateKbOperationDTOAdd { QnaList = new List<QnADTO> { new QnADTO { Questions = new List<string> { "bye" }, Answer = "goodbye" } } }
-                ,
+                Add = new UpdateKbOperationDTOAdd { QnaList = new List<QnADTO> { new QnADTO { Questions = new List<string> { "bye" }, Answer = "goodbye" } } }, 
                 Update = null,
                 Delete = null
             });
