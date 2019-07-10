@@ -38,10 +38,11 @@ namespace Knowledgebase_Quickstart
             UpdateKB(client, kbId).Wait();
             Console.WriteLine("KB Updated.");
 
-            // Publish the KB
+            // <PublishKB>
             Console.Write("Publishing KB...");
             client.Knowledgebase.PublishAsync(kbId).Wait();
             Console.WriteLine("KB Published.");
+            // </PublishKB>
 
             // <DownloadKB>
             Console.Write("Downloading KB...");
