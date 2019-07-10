@@ -19,61 +19,43 @@ namespace Knowledgebase_Quickstart
 
     class Program
     {
-        // <MainAndRunMethods>
+        // <Main>
         static void Main(string[] args)
-        {
-            Run().Wait();
-        }
-
-        static async Task Run()
         {
             // <Authorization>
             var subscriptionKey = Environment.GetEnvironmentVariable("QNAMAKER_SUBSCRIPTION_KEY");
 
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
             // </Authorization>
-            
+
             // Create a KB
             Console.WriteLine("Creating KB...");
-            var kbId = await CreateSampleKb(client);
+            var kbId = CreateSampleKb(client).Result;
             Console.WriteLine("Created KB with ID : {0}", kbId);
 
             // Update the KB
             Console.WriteLine("Updating KB...");
-            await UpdateKB(client, kbId);
+            UpdateKB(client, kbId).Wait();
             Console.WriteLine("KB Updated.");
 
             // Publish the KB
             Console.Write("Publishing KB...");
-            await client.Knowledgebase.PublishAsync(kbId);
+            client.Knowledgebase.PublishAsync(kbId).Wait();
             Console.WriteLine("KB Published.");
 
             // <DownloadKB>
-            // Download the KB
             Console.Write("Downloading KB...");
-            /*
-             * QnAMaker API - Download a knowledgebase
-             */
-            var kbData = await client.Knowledgebase.DownloadAsync(kbId, EnvironmentType.Prod);
-
-            // END - Download a knowledgebase
+            var kbData = client.Knowledgebase.DownloadAsync(kbId, EnvironmentType.Prod).Result;
             Console.WriteLine("KB Downloaded. It has {0} QnAs.", kbData.QnaDocuments.Count);
             // </DownloadKB>
 
             // <DeleteKB>
-            // Delete the KB
             Console.Write("Deleting KB...");
-            /*
-             * QnAMaker API - Delete a knowledgebase
-             */
-            await client.Knowledgebase.DeleteAsync(kbId);
-            // END - Delete a knowledgebase
-            Console.WriteLine("KB Deleted.");
+            client.Knowledgebase.DeleteAsync(kbId).Wait();
+            Console.WriteLine("KB Deleted.");            
             // </DeleteKB>
-
-
         }
-        // </MainAndRunMethods>
+        // </Main>
 
         // <UpdateKB>
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
@@ -142,6 +124,6 @@ namespace Knowledgebase_Quickstart
             }
             return operation;
         }
-        // <MonitorOperation>        
+        // </MonitorOperation>        
     }
 }
