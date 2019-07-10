@@ -27,10 +27,12 @@ namespace Knowledgebase_Quickstart
 
         static async Task Run()
         {
+            // <Authorization>
             var subscriptionKey = Environment.GetEnvironmentVariable("QNAMAKER_SUBSCRIPTION_KEY");
 
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
-
+            // </Authorization>
+            
             // Create a KB
             Console.WriteLine("Creating KB...");
             var kbId = await CreateSampleKb(client);
