@@ -59,7 +59,7 @@ namespace Knowledgebase_Quickstart
 
             // <GenerateAnswer>
             Console.Write("Querying Endpoint...");
-            var response = runtimeClient.Runtime.GenerateAnswer(kbId, new QueryDTO { Question = "How do I manage my knowledgebase?" });
+            var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, new QueryDTO { Question = "How do I manage my knowledgebase?" }).Result;
             Console.WriteLine("Endpoint Response: {0}.", response.Answers[0].Answer);
             // </GenerateAnswer>
 
