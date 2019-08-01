@@ -28,6 +28,12 @@ namespace Knowledgebase_Quickstart
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
             // </Authorization>
 
+            // <EndpointKey>
+            var endpointhostName = Environment.GetEnvironmentVariable("QNAMAKER_ENDPOINT_HOSTNAME");
+            var endpointKey = Environment.GetEnvironmentVariable("QNAMAKER_ENDPOINT_KEY");
+            var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = $"https://{endpointhostName}.azurewebsites.net" };
+            // </EndpointKey>
+
             // Create a KB
             Console.WriteLine("Creating KB...");
             var kbId = CreateSampleKb(client).Result;
@@ -49,6 +55,14 @@ namespace Knowledgebase_Quickstart
             var kbData = client.Knowledgebase.DownloadAsync(kbId, EnvironmentType.Prod).Result;
             Console.WriteLine("KB Downloaded. It has {0} QnAs.", kbData.QnaDocuments.Count);
             // </DownloadKB>
+
+
+            // <GenerateAnswer>
+            Console.Write("Querying Endpoint...");
+            var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, new QueryDTO { Question = "How do I manage my knowledgebase?" }).Result;
+            Console.WriteLine("Endpoint Response: {0}.", response.Answers[0].Answer);
+            // </GenerateAnswer>
+
 
             // <DeleteKB>
             Console.Write("Deleting KB...");
