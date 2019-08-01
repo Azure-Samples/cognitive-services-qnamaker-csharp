@@ -24,7 +24,6 @@ namespace Knowledgebase_Quickstart
         {
             // <Authorization>
             var subscriptionKey = Environment.GetEnvironmentVariable("QNAMAKER_SUBSCRIPTION_KEY");
-
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
             // </Authorization>
 
