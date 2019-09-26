@@ -3,7 +3,8 @@ Build Instructions
 1. Open the sln file in Visual Studio
 2. Hit F6
 
-Direct Download
+Direct Download:
+
 You can download the built zip file from here: https://qnamakerstore.blob.core.windows.net/qnamakerdata/batchtesting/bt.zip
 
 Usage Instructions
