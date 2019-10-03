@@ -1,19 +1,17 @@
 
-Build Instructions
-1. Open the sln file in Visual Studio
+Usage Instructions
+I Build Instructions:
+1. Open the sln file in Visual Studio 2017
 2. Hit F6
 
-Direct Download:
-
-You can download the built zip file from here: https://qnamakerstore.blob.core.windows.net/qnamakerdata/batchtesting/bt.zip
-
-Usage Instructions
-
 Run command as below–
-
 dotnet batchtesting.dll FAQ_Sample.tsv https://activelearningtest.azurewebsites.net edcf3783-8303-4c44-8014-03c55b5f8f0a OUTPUT_new.tsv
 
-(for .net full build use batchtesting.exe)
+
+II Non VS Build(Uses Full .net FX, no need for core runtime): https://qnamakerstore.blob.core.windows.net/qnamakerdata/batchtesting/bt.zip
+Run command as below–
+batchtesting.exe FAQ_Sample.tsv https://activelearningtest.azurewebsites.net edcf3783-8303-4c44-8014-03c55b5f8f0a OUTPUT_new.tsv
+
 
 Parameters -
 
