@@ -35,13 +35,16 @@ namespace batchtesting
             var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeHost };
 
             var lineNumber = 0;
-            File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore\tMetadata\tExpectedAnswer\tLabel{Environment.NewLine}");
+            File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
+            var watch = new Stopwatch();
+            watch.Start();
+            var maxLines = inputQueryData.Count;
             foreach (var queryData in inputQueryData)
             {
                 try
                 {
                     lineNumber++;
-                    var (queryDto, kbId, expectedAnswer) = GetQueryDTO(queryData);
+                    var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData);
                     var response = runtimeClient.Runtime.GenerateAnswer(kbId, queryDto);
 
                     var resultLine = new List<string>();
@@ -60,15 +63,20 @@ namespace batchtesting
                     var metaDataList =  firstResult?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
                     resultLine.Add(metaDataList == null ? string.Empty : string.Join("|", metaDataList));
 
+                    // Add the QnaId
+                    var firstQnaId = firstResult?.Id?.ToString();
+                    resultLine.Add(firstQnaId);
+
                     // Add expected answer and label
-                    if (!string.IsNullOrWhiteSpace(expectedAnswer))
+                    if (!string.IsNullOrWhiteSpace(expectedAnswerId))
                     {
-                        resultLine.Add(expectedAnswer);
-                        resultLine.Add(answer == expectedAnswer ? "Correct" : "Incorrect");
+                        resultLine.Add(expectedAnswerId);
+                        resultLine.Add(firstQnaId == expectedAnswerId ? "Correct" : "Incorrect");
                     }
 
                     var result = string.Join('\t', resultLine);
                     File.AppendAllText(outputFile, $"{result}{Environment.NewLine}");
+                    PrintProgress(watch, lineNumber, maxLines);
                 }
                 catch (Exception ex)
                 {
@@ -76,6 +84,14 @@ namespace batchtesting
                 }
             }
 
+        }
+
+        private static void PrintProgress(Stopwatch watch, int lineNumber, int maxLines)
+        {
+            var qps = (double)lineNumber / watch.ElapsedMilliseconds * 1000.0;
+            var remaining = maxLines - lineNumber;
+            var etasecs =  (long)Math.Ceiling(remaining * qps);
+            Console.WriteLine($"Done : {lineNumber}/{maxLines}. {remaining} remaining. ETA: {etasecs} seconds.");
         }
 
         private static (QueryDTO, string, string) GetQueryDTO(List<string> queryData)
@@ -107,13 +123,13 @@ namespace batchtesting
             }
 
             // expected answer - Optional
-            string expectedAnswer = null;
+            string expectedAnswerId = null;
             if (queryData.Count > 4 && !string.IsNullOrWhiteSpace(queryData[4]))
             {
-                expectedAnswer = queryData[4];
+                expectedAnswerId = queryData[4];
             }
 
-            return (queryDto, kbId, expectedAnswer);
+            return (queryDto, kbId, expectedAnswerId);
         }
 
         private static List<string> GetTsvData(string line)
