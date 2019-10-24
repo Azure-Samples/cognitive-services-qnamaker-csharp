@@ -1,30 +1,41 @@
+# Batch testing your knowledge base
 
-Usage Instructions
-I Build Instructions:
-1. Open the sln file in Visual Studio 2017
-2. Hit F6
+Batch testing is available from this source code or as a [downloadable executable zipped](https://aka.ms/qna_btzip ). The format of the command to run the batch test is:
 
-Run command as below–
-dotnet batchtesting.dll FAQ_Sample.tsv https://activelearningtest.azurewebsites.net edcf3783-8303-4c44-8014-03c55b5f8f0a OUTPUT_new.tsv
+```console
+batchtesting.exe input.tsv https://YOUR-HOST.azurewebsites.net ENDPOINT-KEY out.tsv
+```
 
+|Param|Expected Value|
+|--|--|
+|1|name of tsv file formatted with [TSV input fields](#tsv-input-fields)|
+|2|URI for endpoint, with YOUR-HOST from the Publish page of the QnA Maker portal.|
+|3|ENDPOINT-KEY, found on Publish page of the QnA Maker portal.|
+|4|name of tsv file created by batch test for results.|
 
-II Non VS Build(Uses Full .net FX, no need for core runtime): https://qnamakerstore.blob.core.windows.net/qnamakerdata/batchtesting/bt.zip
-Run command as below–
-batchtesting.exe FAQ_Sample.tsv https://activelearningtest.azurewebsites.net edcf3783-8303-4c44-8014-03c55b5f8f0a OUTPUT_new.tsv
+Use the following information to understand and implement the TSV format for batch testing. 
 
+## TSV input fields
 
-Parameters -
+|TSV input file fields|Notes|
+|--|--|
+|KBID|Your KB ID found on the Publish page.|
+|Question|The question a user would enter.|
+|Metadata tags|optional|
+|Top parameter|optional| 
+|Expected answer ID|optional|
 
-· Input file name in tsv format – Need to give the input file path
+![Input format for TSV file for batch testing.](media/batch-test/input-tsv-format-batch-test.png)
 
-You need to create the sample input data for batch testing in a format (below)
+## TSV output fields 
 
-6251001c-273b-4a60-8325-4ccbac07f568(KBID) Question name:value* N(Top)*
-
-*Metadata and Top parameters are optional
-
-· Hostname – Hostname details
-
-· Endpoint key – Endpoint key details
-
-· Output file name in tsv format – Need to give the output file path
+|TSV Output file parameters|Notes|
+|--|--|
+|KBID|Your KB ID found on the Publish page.|
+|Question|The question as entered from the input file.|
+|Answer|Top answer from your knowledge base.|
+|Answer ID|Answer ID|
+|Score|Prediction score for answer. |
+|Metadata tags|associated with returned answer|
+|Expected answer ID|optional (only when expected answer ID is given)|
+|Judgment label|optional, values could be: correct or incorrect (only when expected answer is given)|
