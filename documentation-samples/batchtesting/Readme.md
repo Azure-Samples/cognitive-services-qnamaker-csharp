@@ -25,7 +25,7 @@ Use the following information to understand and implement the TSV format for bat
 |Top parameter|optional| 
 |Expected answer ID|optional|
 
-![Input format for TSV file for batch testing.](media/batch-test/input-tsv-format-batch-test.png)
+![Input format for TSV file for batch testing.](../media/input-tsv-format-batch-test.png)
 
 ## TSV output fields 
 
