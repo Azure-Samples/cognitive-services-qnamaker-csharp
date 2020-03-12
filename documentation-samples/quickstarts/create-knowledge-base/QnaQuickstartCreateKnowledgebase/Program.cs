@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,14 +14,16 @@ namespace QnaQuickstartCreateKnowledgebase
 {
     class Program
     {
+        private const string subscriptionKeyVar = "QNA_MAKER_SUBSCRIPTION_KEY";
+        private const string endpointVar = "QNA_MAKER_ENDPOINT";
+
+        private static readonly string subscriptionKey = Environment.GetEnvironmentVariable(subscriptionKeyVar);
+        private static readonly string endpoint = Environment.GetEnvironmentVariable(endpointVar);
+
         // Represents the various elements used to create HTTP request URIs
         // for QnA Maker operations.
-        static string host = "https://westus.api.cognitive.microsoft.com";
         static string service = "/qnamaker/v4.0";
         static string method = "/knowledgebases/create";
-
-        // NOTE: Replace this value with a valid QnA Maker subscription key.
-        static string key = "your-qna-maker-subscription-key";
 
         /// <summary>
         /// Defines the data source used to create the knowledge base.
@@ -49,12 +51,27 @@ namespace QnaQuickstartCreateKnowledgebase
     }
   ],
   'urls': [
-    'https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs',
-    'https://docs.microsoft.com/en-us/bot-framework/resources-bot-framework-faq'
+    'https://docs.microsoft.com/en-in/azure/cognitive-services/qnamaker/faqs'
   ],
   'files': []
 }
 ";
+
+        /// <summary>
+        /// Static constuctor. Verifies that we found the subscription key and
+        /// endpoint in the environment variables.
+        /// </summary>
+        static Program()
+        {
+            if (null == subscriptionKey)
+            {
+                throw new Exception("Please set/export the environment variable: " + subscriptionKeyVar);
+            }
+            if (null == endpoint)
+            {
+                throw new Exception("Please set/export the environment variable: " + endpointVar);
+            }
+        }
 
         /// <summary>
         /// Represents the HTTP response returned by an HTTP request.
@@ -96,7 +113,7 @@ namespace QnaQuickstartCreateKnowledgebase
                 request.Method = HttpMethod.Post;
                 request.RequestUri = new Uri(uri);
                 request.Content = new StringContent(body, Encoding.UTF8, "application/json");
-                request.Headers.Add("Ocp-Apim-Subscription-Key", key);
+                request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
                 var response = await client.SendAsync(request);
                 var responseBody = await response.Content.ReadAsStringAsync();
@@ -117,7 +134,7 @@ namespace QnaQuickstartCreateKnowledgebase
             {
                 request.Method = HttpMethod.Get;
                 request.RequestUri = new Uri(uri);
-                request.Headers.Add("Ocp-Apim-Subscription-Key", key);
+                request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
                 var response = await client.SendAsync(request);
                 var responseBody = await response.Content.ReadAsStringAsync();
@@ -137,7 +154,7 @@ namespace QnaQuickstartCreateKnowledgebase
         async static Task<Response> PostCreateKB(string kb)
         {
             // Builds the HTTP request URI.
-            string uri = host + service + method;
+            string uri = endpoint + service + method;
 
             // Writes the HTTP request URI to the console, for display purposes.
             Console.WriteLine("Calling " + uri + ".");
@@ -159,7 +176,7 @@ namespace QnaQuickstartCreateKnowledgebase
         async static Task<Response> GetStatus(string operation)
         {
             // Builds the HTTP request URI.
-            string uri = host + service + operation;
+            string uri = endpoint + service + operation;
 
             // Writes the HTTP request URI to the console, for display purposes.
             Console.WriteLine("Calling " + uri + ".");
@@ -244,7 +261,7 @@ namespace QnaQuickstartCreateKnowledgebase
             CreateKB();
 
             // The console waits for a key to be pressed before closing.
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
