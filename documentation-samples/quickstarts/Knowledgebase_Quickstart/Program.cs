@@ -1,10 +1,11 @@
-﻿/*
+/*
  * Tasks Included
  * 1. Create a knowledgebase
  * 2. Update a knowledgebase
  * 3. Publish a knowledgebase
  * 4. Download a knowledgebase
- * 5. Delete a knowledgebase
+ * 5. Query a knowledgebase
+ * 6. Delete a knowledgebase
  */
 namespace Knowledgebase_Quickstart
 {
@@ -23,15 +24,17 @@ namespace Knowledgebase_Quickstart
         static void Main(string[] args)
         {
             // <Authorization>
-            var subscriptionKey = Environment.GetEnvironmentVariable("QNAMAKER_SUBSCRIPTION_KEY");
-            var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = "https://westus.api.cognitive.microsoft.com" };
-            // </Authorization>
+            var subscriptionKey = Environment.GetEnvironmentVariable("QNA_MAKER_SUBSCRIPTION_KEY");
+            // This typically looks like "https://<your resource name>.cognitiveservices.azure.com".
+            var apiEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_ENDPOINT");
+            // This typically looks like "https://<your resource name>.azurewebsites.net".
+            var runtimeEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_RUNTIME_ENDPOINT");
+            var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = apiEndpoint };
 
-            // <EndpointKey>
-            var endpointhostName = Environment.GetEnvironmentVariable("QNAMAKER_ENDPOINT_HOSTNAME");
-            var endpointKey = Environment.GetEnvironmentVariable("QNAMAKER_ENDPOINT_KEY");
-            var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = $"https://{endpointhostName}.azurewebsites.net" };
-            // </EndpointKey>
+            var endpointKey = GetEndpointKey(client).Result;
+            // NOTE: Use EndpointKeyServiceClientCredentials here, NOT ApiKeyServiceClientCredentials.
+            var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeEndpoint };
+            // </Authorization>
 
             // Create a KB
             Console.WriteLine("Creating KB...");
@@ -44,32 +47,41 @@ namespace Knowledgebase_Quickstart
             Console.WriteLine("KB Updated.");
 
             // <PublishKB>
-            Console.Write("Publishing KB...");
+            Console.WriteLine("Publishing KB...");
             client.Knowledgebase.PublishAsync(kbId).Wait();
             Console.WriteLine("KB Published.");
             // </PublishKB>
 
             // <DownloadKB>
-            Console.Write("Downloading KB...");
+            Console.WriteLine("Downloading KB...");
             var kbData = client.Knowledgebase.DownloadAsync(kbId, EnvironmentType.Prod).Result;
             Console.WriteLine("KB Downloaded. It has {0} QnAs.", kbData.QnaDocuments.Count);
             // </DownloadKB>
 
-
             // <GenerateAnswer>
-            Console.Write("Querying Endpoint...");
+            Console.WriteLine("Querying KB...");
             var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, new QueryDTO { Question = "How do I manage my knowledgebase?" }).Result;
-            Console.WriteLine("Endpoint Response: {0}.", response.Answers[0].Answer);
+            Console.WriteLine("Response: {0}.", response.Answers[0].Answer);
             // </GenerateAnswer>
 
-
             // <DeleteKB>
-            Console.Write("Deleting KB...");
+            Console.WriteLine("Deleting KB...");
             client.Knowledgebase.DeleteAsync(kbId).Wait();
-            Console.WriteLine("KB Deleted.");            
+            Console.WriteLine("KB Deleted.");
             // </DeleteKB>
+
+            Console.WriteLine("Press any key to finish.");
+            _ = Console.ReadKey();
         }
         // </Main>
+
+        // <GetEndpointKeys>
+        private static async Task<string> GetEndpointKey(IQnAMakerClient client)
+        {
+            var keys = await client.EndpointKeys.GetKeysAsync();
+            return keys.PrimaryEndpointKey.ToString();
+        }
+        // </GetEndpointKeys>
 
         // <UpdateKB>
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
@@ -78,7 +90,7 @@ namespace Knowledgebase_Quickstart
             var updateOp = await client.Knowledgebase.UpdateAsync(kbId, new UpdateKbOperationDTO
             {
                 // Create JSON of changes 
-                Add = new UpdateKbOperationDTOAdd { QnaList = new List<QnADTO> { new QnADTO { Questions = new List<string> { "bye" }, Answer = "goodbye" } } }, 
+                Add = new UpdateKbOperationDTOAdd { QnaList = new List<QnADTO> { new QnADTO { Questions = new List<string> { "bye" }, Answer = "goodbye" } } },
                 Update = null,
                 Delete = null
             });
@@ -95,13 +107,13 @@ namespace Knowledgebase_Quickstart
             {
                 Answer = "You can use our REST APIs to manage your knowledge base.",
                 Questions = new List<string> { "How do I manage my knowledgebase?" },
-                Metadata = new List<MetadataDTO> { new MetadataDTO { Name = "Category", Value = "api" } }    
+                Metadata = new List<MetadataDTO> { new MetadataDTO { Name = "Category", Value = "api" } }
             };
-            
+
             var file1 = new FileDTO
             {
-                FileName="myFileName",
-                FileUri="https://mydomain/myfile.md"
+                FileName = "myFileName",
+                FileUri = "https://mydomain/myfile.md"
 
             };
 
