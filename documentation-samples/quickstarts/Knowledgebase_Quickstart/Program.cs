@@ -30,11 +30,13 @@ namespace Knowledgebase_Quickstart
             // This typically looks like "https://<your resource name>.azurewebsites.net".
             var runtimeEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_RUNTIME_ENDPOINT");
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = apiEndpoint };
+            // </Authorization>
 
+            // <EndpointKey>
             var endpointKey = GetEndpointKey(client).Result;
             // NOTE: Use EndpointKeyServiceClientCredentials here, NOT ApiKeyServiceClientCredentials.
             var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeEndpoint };
-            // </Authorization>
+            // </EndpointKey>
 
             // Create a KB
             Console.WriteLine("Creating KB...");
@@ -75,13 +77,13 @@ namespace Knowledgebase_Quickstart
         }
         // </Main>
 
-        // <GetEndpointKeys>
+        // <GetEndpointKey>
         private static async Task<string> GetEndpointKey(IQnAMakerClient client)
         {
             var keys = await client.EndpointKeys.GetKeysAsync();
             return keys.PrimaryEndpointKey.ToString();
         }
-        // </GetEndpointKeys>
+        // </GetEndpointKey>
 
         // <UpdateKB>
         private static async Task UpdateKB(IQnAMakerClient client, string kbId)
