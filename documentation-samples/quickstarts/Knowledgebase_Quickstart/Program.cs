@@ -28,11 +28,11 @@ namespace Knowledgebase_Quickstart
             // This typically looks like "https://<your resource name>.cognitiveservices.azure.com".
             var apiEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_ENDPOINT");
             // This typically looks like "https://<your resource name>.azurewebsites.net".
-            var runtimeEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_RUNTIME_ENDPOINT");
             var client = new QnAMakerClient(new ApiKeyServiceClientCredentials(subscriptionKey)) { Endpoint = apiEndpoint };
             // </Authorization>
 
             // <EndpointKey>
+            var runtimeEndpoint = Environment.GetEnvironmentVariable("QNA_MAKER_RUNTIME_ENDPOINT");
             var endpointKey = GetEndpointKey(client).Result;
             // NOTE: Use EndpointKeyServiceClientCredentials here, NOT ApiKeyServiceClientCredentials.
             var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeEndpoint };
