@@ -11,14 +11,16 @@ urlFragment: cognitive-services-qnamaker-csharp
 
 # Cognitive Services QnA Maker Samples in C#
 
-### Quickstart samples
+## Batch test
+
+Batch testing is available from [this source code](./documentation-samples/batchtesting/Readme.md) or as a [downloadable executable zipped](https://aka.ms/qna_btzip).
+
+
+## Quickstart samples moved
 
 All sample code for QnA Maker, used in documentation quickstarts, has been moved to the [https://github.com/Azure-Samples/cognitive-services-quickstart-code](https://github.com/Azure-Samples/cognitive-services-quickstart-code) repo.
 
-### Web app bot
-
-* How-to: [Integrate LUIS with QnA Maker with Web app bot 3.x](documentation-samples/bot-luis-qnamaker/readme.md)
 
 ## References
 
-[QnA Maker V4.0](https://westus.dev.cognitive.microsoft.com/docs/services/5a93fcf85b4ccd136866eb37/operations/5ac266295b4ccd1554da75ff)
+[QnA Maker documentation](https://docs.microsoft.com/azure/cognitive-services/qnamaker/)
