@@ -45,7 +45,7 @@ namespace batchtesting
                 {
                     lineNumber++;
                     var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData);
-                    var response = runtimeClient.Runtime.GenerateAnswer(kbId, queryDto);
+                    var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
 
                     var resultLine = new List<string>();
                     resultLine.Add(lineNumber.ToString());
