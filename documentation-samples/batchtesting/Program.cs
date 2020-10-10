@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
+using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
 using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
 using System;
 using System.Collections.Generic;
@@ -39,6 +39,7 @@ namespace batchtesting
             var watch = new Stopwatch();
             watch.Start();
             var maxLines = inputQueryData.Count;
+            
             foreach (var queryData in inputQueryData)
             {
                 try
@@ -47,36 +48,43 @@ namespace batchtesting
                     var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData);
                     var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
 
-                    var resultLine = new List<string>();
-                    resultLine.Add(lineNumber.ToString());
-                    resultLine.Add(kbId);
-                    resultLine.Add(queryDto.Question);
-
-                    // Add the first answer and its score
-                    var firstResult = response.Answers.FirstOrDefault();
-                    var answer = firstResult?.Answer?.Replace("\n", "\\n");
-
-                    resultLine.Add(answer);
-                    resultLine.Add(firstResult?.Score?.ToString());
-
-                    // Add Metadata
-                    var metaDataList =  firstResult?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
-                    resultLine.Add(metaDataList == null ? string.Empty : string.Join("|", metaDataList));
-
-                    // Add the QnaId
-                    var firstQnaId = firstResult?.Id?.ToString();
-                    resultLine.Add(firstQnaId);
-
-                    // Add expected answer and label
-                    if (!string.IsNullOrWhiteSpace(expectedAnswerId))
+                    var topLineNumber = 0;
+                    foreach (var ans in response.Answers)
                     {
-                        resultLine.Add(expectedAnswerId);
-                        resultLine.Add(firstQnaId == expectedAnswerId ? "Correct" : "Incorrect");
-                    }
+                        topLineNumber++;
 
-                    var result = string.Join('\t', resultLine);
-                    File.AppendAllText(outputFile, $"{result}{Environment.NewLine}");
-                    PrintProgress(watch, lineNumber, maxLines);
+                        // Column for line number. Format is {QuestionNumber}.{TopAnswerNumber}
+                        var colLineNumber = $"{lineNumber.ToString()}.{topLineNumber.ToString()}";
+
+                        var resultLine = new List<string>();
+                        resultLine.Add(colLineNumber);
+                        resultLine.Add(kbId);
+                        resultLine.Add(queryDto.Question);
+
+                        var answer = ans?.Answer?.Replace("\n", "\\n");
+
+                        resultLine.Add(answer);
+                        resultLine.Add(ans?.Score?.ToString());
+
+                        // Add Metadata
+                        var metaDataList = ans?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
+                        resultLine.Add(metaDataList == null ? string.Empty : string.Join("|", metaDataList));
+
+                        // Add the QnaId
+                        var firstQnaId = ans?.Id?.ToString();
+                        resultLine.Add(firstQnaId);
+
+                        // Add expected answer and label
+                        if (!string.IsNullOrWhiteSpace(expectedAnswerId))
+                        {
+                            resultLine.Add(expectedAnswerId);
+                            resultLine.Add(firstQnaId == expectedAnswerId ? "Correct" : "Incorrect");
+                        }
+
+                        var result = string.Join('\t', resultLine);
+                        File.AppendAllText(outputFile, $"{result}{Environment.NewLine}");
+                        PrintProgress(watch, lineNumber, maxLines, colLineNumber);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -86,12 +94,12 @@ namespace batchtesting
 
         }
 
-        private static void PrintProgress(Stopwatch watch, int lineNumber, int maxLines)
+        private static void PrintProgress(Stopwatch watch, int lineNumber, int maxLines, string colLineNumber = "")
         {
             var qps = (double)lineNumber / watch.ElapsedMilliseconds * 1000.0;
             var remaining = maxLines - lineNumber;
             var etasecs =  (long)Math.Ceiling(remaining * qps);
-            Console.WriteLine($"Done : {lineNumber}/{maxLines}. {remaining} remaining. ETA: {etasecs} seconds.");
+            Console.WriteLine($"Done : {colLineNumber}/{maxLines}. {remaining} remaining. ETA: {etasecs} seconds.");
         }
 
         private static (QueryDTO, string, string) GetQueryDTO(List<string> queryData)
