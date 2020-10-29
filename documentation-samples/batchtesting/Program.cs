@@ -18,10 +18,10 @@ namespace batchtesting
             if (args.Length != 4)
             {
                 var exeName = "batchtesting.exe";
-                Console.WriteLine("For QnAMaker GA");
+                Console.WriteLine("For Qna Maker GA");
                 Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <runtime-hostname> <runtime-endpointkey> <tsv-outputfile>");
                 Console.WriteLine($"{exeName} input.tsv https://myhostname.azurewebsites.net 5397A838-2B74-4E55-8111-D60ED1D7CF7F output.tsv");
-                Console.WriteLine("For QnAMaker V2");
+                Console.WriteLine("For QnA Maker managed (preview)");
                 Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <cs-hostname> <cs-endpointkey> <tsv-outputfile>");
                 Console.WriteLine($"{exeName} input.tsv https://myhostname.cognitiveservices.azure.com b0863a25azsxdcf0b6855e9e988805ed output.tsv");
                 Console.WriteLine();
