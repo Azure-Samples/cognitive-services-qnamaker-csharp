@@ -31,9 +31,9 @@ Use the following information to understand and implement the TSV format for bat
 
 ![Input format for TSV file for batch testing.](../media/input-tsv-format-batch-test.png)
 
-## TSV output fields 
+## TSV output fields for Qna Maker GA
 
-|TSV Output file parameters for Qna Maker GA|Notes|
+|TSV Output file parameters|Notes|
 |--|--|
 |KBID|Your KB ID found on the Publish page.|
 |Question|The question as entered from the input file.|
@@ -44,7 +44,9 @@ Use the following information to understand and implement the TSV format for bat
 |Expected answer ID|optional (only when expected answer ID is given)|
 |Judgment label|optional, values could be: correct or incorrect (only when expected answer is given)|
 
-|TSV Output file parameters for QnA Maker managed (preview)|Notes|
+## TSV output fields for QnA Maker managed (preview)
+
+|TSV Output file parameters|Notes|
 |--|--|
 |KBID|Your KB ID found on the Publish page.|
 |Question|The question as entered from the input file.|
