@@ -3,7 +3,11 @@
 Batch testing is available from this source code or as a [downloadable executable zipped](https://aka.ms/qna_btzip ). The format of the command to run the batch test is:
 
 ```console
-batchtesting.exe input.tsv https://YOUR-HOST.azurewebsites.net ENDPOINT-KEY out.tsv
+For QnAMakerV1: batchtesting.exe input.tsv https://YOUR-HOST.azurewebsites.net ENDPOINT-KEY out.tsv
+```
+
+```console
+For QnAMakerV2: batchtesting.exe input.tsv https://YOUR-HOST.cognitiveservices.azure.com COGNITIVE-SERVICE-KEY out.tsv
 ```
 
 |Param|Expected Value|

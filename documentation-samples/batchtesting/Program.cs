@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
 using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
+using Microsoft.Rest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,8 +18,12 @@ namespace batchtesting
             if (args.Length != 4)
             {
                 var exeName = "batchtesting.exe";
+                Console.WriteLine("For QnAMaker GA");
                 Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <runtime-hostname> <runtime-endpointkey> <tsv-outputfile>");
                 Console.WriteLine($"{exeName} input.tsv https://myhostname.azurewebsites.net 5397A838-2B74-4E55-8111-D60ED1D7CF7F output.tsv");
+                Console.WriteLine("For QnAMaker V2");
+                Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <cs-hostname> <cs-endpointkey> <tsv-outputfile>");
+                Console.WriteLine($"{exeName} input.tsv https://myhostname.cognitiveservices.azure.com b0863a25azsxdcf0b6855e9e988805ed output.tsv");
                 Console.WriteLine();
 
                 return;
@@ -30,12 +35,27 @@ namespace batchtesting
             var endpointKey = args[i++];
             var outputFile = args[i++];
 
+            var isQnAMakerV2 = CheckForQnAMakerV2(runtimeHost);
+
             var inputQueries = File.ReadAllLines(inputFile);
             var inputQueryData = inputQueries.Select(x => GetTsvData(x)).ToList();
-            var runtimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeHost };
+
+            IQnAMakerClient qnaMakerClient = null;
+            QnAMakerRuntimeClient qnaMakerRuntimeClient = null;
+
+            if (isQnAMakerV2)
+            {
+                qnaMakerClient = GetQnAMakerClient(endpointKey, runtimeHost);
+            }
+            else
+            {
+                qnaMakerRuntimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeHost };
+            }
 
             var lineNumber = 0;
-            File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
+            var answerSpanHeader = isQnAMakerV2 ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
+
+            File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore{answerSpanHeader}\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
             var watch = new Stopwatch();
             watch.Start();
             var maxLines = inputQueryData.Count;
@@ -44,8 +64,18 @@ namespace batchtesting
                 try
                 {
                     lineNumber++;
-                    var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData);
-                    var response = runtimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
+                    var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData, isQnAMakerV2);
+
+                    QnASearchResultList response = null;
+
+                    if (isQnAMakerV2)
+                    {
+                        response = qnaMakerClient.Knowledgebase.GenerateAnswerAsync(kbId, queryDto).Result;
+                    }
+                    else
+                    {
+                        response = qnaMakerRuntimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
+                    }
 
                     var resultLine = new List<string>();
                     resultLine.Add(lineNumber.ToString());
@@ -58,6 +88,12 @@ namespace batchtesting
 
                     resultLine.Add(answer);
                     resultLine.Add(firstResult?.Score?.ToString());
+
+                    if (isQnAMakerV2 && firstResult?.AnswerSpan?.Text != null) 
+                    {
+                        resultLine.Add(firstResult?.AnswerSpan?.Text);
+                        resultLine.Add(firstResult?.AnswerSpan?.Score?.ToString());
+                    }
 
                     // Add Metadata
                     var metaDataList =  firstResult?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
@@ -94,7 +130,7 @@ namespace batchtesting
             Console.WriteLine($"Done : {lineNumber}/{maxLines}. {remaining} remaining. ETA: {etasecs} seconds.");
         }
 
-        private static (QueryDTO, string, string) GetQueryDTO(List<string> queryData)
+        private static (QueryDTO, string, string) GetQueryDTO(List<string> queryData, bool isQnAMakerV2 = false)
         {
             var queryDto = new QueryDTO();
 
@@ -122,6 +158,14 @@ namespace batchtesting
                 queryDto.Top = DefaultTopValue;
             }
 
+            if (isQnAMakerV2)
+            {
+                queryDto.AnswerSpanRequest = new QueryDTOAnswerSpanRequest()
+                {
+                    Enable = true
+                };
+            }
+
             // expected answer - Optional
             string expectedAnswerId = null;
             if (queryData.Count > 4 && !string.IsNullOrWhiteSpace(queryData[4]))
@@ -136,5 +180,23 @@ namespace batchtesting
         {
             return line.Split('\t').ToList();
         }
+
+        private static bool CheckForQnAMakerV2(string endpointUrl)
+        {
+            if (!endpointUrl.Contains("azurewebsites.net")) return true;
+            return false;
+        }
+
+        private static IQnAMakerClient GetQnAMakerClient(string qnaMakerSubscriptionKey, string endpointHost)
+        {
+            IQnAMakerClient client = new QnAMakerClient(new ApiKeyServiceClientCredentials(qnaMakerSubscriptionKey))
+            {
+                Endpoint = endpointHost
+            };
+
+
+            return client;
+        }
+
     }
 }
