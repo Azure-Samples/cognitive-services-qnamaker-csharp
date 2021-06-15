@@ -1,4 +1,4 @@
-﻿namespace SampleBotLuisQna.LuisHelper
+﻿namespace EntitiesWithQnAMaker.LuisHelper
 {
     using System;
     using System.Collections.Generic;

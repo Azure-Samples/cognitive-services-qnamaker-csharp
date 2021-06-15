@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
-namespace SampleBotLuisQna.LuisHelper
+namespace EntitiesWithQnAMaker.LuisHelper
 {
     public partial class LaptopManual : IRecognizerConvert
     {

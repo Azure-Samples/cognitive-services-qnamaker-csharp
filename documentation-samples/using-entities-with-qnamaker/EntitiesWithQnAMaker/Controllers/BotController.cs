@@ -3,7 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio Bot v4.13.2
 
-namespace SampleBotLuisQna.Controllers
+namespace EntitiesWithQnAMaker.Controllers
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;

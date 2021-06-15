@@ -3,7 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio CoreBot v4.13.2
 
-namespace SampleBotLuisQna
+namespace EntitiesWithQnAMaker
 {
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Bot.Builder.TraceExtensions;

@@ -3,7 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio Bot v4.13.2
 
-namespace SampleBotLuisQna
+namespace EntitiesWithQnAMaker
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ namespace SampleBotLuisQna
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using SampleBotLuisQna.Bots;
+    using EntitiesWithQnAMaker.Bots;
 
     public class Startup
     {

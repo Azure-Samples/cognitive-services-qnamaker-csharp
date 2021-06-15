@@ -1,4 +1,4 @@
-﻿# bot_luis_qnamaker
+﻿# EntitiesWithQnAMaker
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a bot that uses Luis to extract entities and qna maker to query the knowledge base using the extracted entities as metadata in strict filters.
 
@@ -68,11 +68,11 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
         }
     ```
 
-- Next step in a terminal, navigate to `bot_luis_qnamaker`
+- Next step in a terminal, navigate to `EntitiesWithQnAMaker`
 
     ```bash
     # change into project folder
-    cd # bot_luis_qnamaker
+    cd # EntitiesWithQnAMaker
     ```
 
 - Run the bot from a terminal or from Visual Studio, choose option A or B.
@@ -88,8 +88,8 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
 
   - Launch Visual Studio
   - File -> Open -> Project/Solution
-  - Navigate to `bot_luis_qnamaker` folder
-  - Select `SampleBotLuisQna.csproj` file
+  - Navigate to `EntitiesWithQnAMaker` folder
+  - Select `EntitiesWithQnAMaker.csproj` file
   - Press `F5` to run the project
 
 ## Testing the bot using Bot Framework Emulator

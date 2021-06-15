@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // Generated with Bot Builder V4 SDK Template for Visual Studio Bot v4.13.2
 
-namespace SampleBotLuisQna
+namespace EntitiesWithQnAMaker
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;

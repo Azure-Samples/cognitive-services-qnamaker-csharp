@@ -3,7 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio Bot v4.13.2
 
-namespace SampleBotLuisQna.Bots
+namespace EntitiesWithQnAMaker.Bots
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -13,7 +13,7 @@ namespace SampleBotLuisQna.Bots
     using Microsoft.Bot.Builder.AI.QnA;
     using Microsoft.Bot.Schema;
     using Microsoft.Extensions.Configuration;
-    using SampleBotLuisQna.LuisHelper;
+    using EntitiesWithQnAMaker.LuisHelper;
 
     /// <summary>
     /// Bot Class.
