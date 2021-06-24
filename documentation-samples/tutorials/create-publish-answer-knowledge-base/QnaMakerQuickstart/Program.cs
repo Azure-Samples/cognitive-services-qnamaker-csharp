@@ -29,7 +29,7 @@ namespace QnaMakerQuickstart
     {
         // Represents the various elements used to create HTTP request URIs
         // for QnA Maker operations.
-        static string host = "https://westus.api.cognitive.microsoft.com";
+        static string host = "https://<your-resource-name>.api.cognitive.microsoft.com";
 
         // Management APIs postpend the version to the route
         static string service = "/qnamaker/v4.0";
@@ -45,7 +45,7 @@ namespace QnaMakerQuickstart
 
         // NOTE: Replace this value with a valid QnA Maker subscription key found in 
         // Azure portal for QnA Maker resource.
-        static string key = "Qna Maker Resource Key";
+        static string key = "<your-resource-key>";
 
         // NOTE: The KB ID is found in GetStatus() call
         static string kbid = "";

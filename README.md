@@ -1,3 +1,14 @@
+---
+page_type: sample
+languages:
+- csharp
+- html
+products:
+- azure
+description: "These REST samples show you how to programmatically create, update, publish,"
+urlFragment: cognitive-services-qnamaker-csharp
+---
+
 # Cognitive Services QnA Maker Samples in C#
 
 These REST samples show you how to programmatically create, update, publish, and replace a QnA Maker knowledge base, amongst many other ways to interact with it. All samples are in C#. To view these same samples in other languages:
