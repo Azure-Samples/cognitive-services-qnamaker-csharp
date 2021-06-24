@@ -67,12 +67,12 @@ namespace EntitiesWithQnAMaker.Bots
                     var model = luisResult?.Entities?.Model;
 
                     // if no model is found, then we show result for surface pro 4
-                    var metadatas = new Metadata[1] { new Metadata() { Name = "MetadataName", Value = "surface pro 4" } };
+                    var metaDataArray = new Metadata[1] { new Metadata() { Name = "MetadataName", Value = "surface pro 4" } };
 
                     if (model is not null)
                     {
                         // creating list of metadatas for all the models found.
-                        metadatas = model
+                        metaDataArray = model
                        .Select(s => new Metadata() { Name = "MetadataName", Value = $"{s[0]}" })
                        .ToArray();
                     }
@@ -82,7 +82,7 @@ namespace EntitiesWithQnAMaker.Bots
                     {
                         ScoreThreshold = float.Parse(this.configuration["QnAScoreThreshold"]),     // Minimum threshold score for answers.
                         Top = int.Parse(this.configuration["QnATop"]),    // Max number of answers to be returned for the question.
-                        StrictFilters = metadatas,       // Find QnAs that are associated with the given list of metadata.
+                        StrictFilters = metaDataArray,       // Find QnAs that are associated with the given list of metadata.
                         StrictFiltersJoinOperator = JoinOperator.OR,     // using OR operations to get results for all models.
                     };
 

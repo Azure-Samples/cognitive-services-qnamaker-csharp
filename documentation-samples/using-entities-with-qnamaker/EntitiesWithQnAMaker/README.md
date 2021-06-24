@@ -16,12 +16,14 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
   ### Create a QnA Maker service and publish a knowledge base 
   - Create a [qna maker resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesQnAMaker) 
   - Sign in to [the QnAMaker.ai](https://qnamaker.ai/) portal with your Azure credentials.
-  - In the QnA Maker portal, create a knowledge base using the LaptopManualKb.tsv file located in the 'Models' folder of the sample project. Name your knowledge base qna, and use the LaptopManualKb.tsv file to populate it.
+  - In the QnA Maker portal, create an empty knowledge base.
+  - Go to **SETTINGS** tab, scroll down **Import Knowledge Base** option.
+  - Select '**QnAs**' button and click on **Import**. Import 'LaptopManualKb.tsv' file located in the 'Models' folder of the sample project.
   
   ### Obtain values to connect your bot to the knowledge base
   - In the [QnA Maker](https://www.qnamaker.ai/) site, select your knowledge base.
-  - With your knowledge base open, select the SETTINGS tab. 
-  - Scroll down to find Deployment details and record the following values from the Postman sample HTTP request:
+  - With your knowledge base open, select the **SETTINGS** tab. 
+  - Scroll down to find **Deployment details** and record the following values from the Postman sample HTTP request:
     - POST /knowledgebases/<knowledge-base-id>/generateAnswer
     - Host: <YOUR_HOST_URL>
     - Authorization: EndpointKey <YOUR_ENDPOINT_KEY>
@@ -32,15 +34,15 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
      - If you don't already have an account, create one.
     - If you don't already have an authoring resource, create one.
     -  For more information, see the LUIS documentation on [how to sign in to the LUIS portal](https://docs.microsoft.com/en-us/azure/cognitive-services/luis/luis-how-to-start-new-app#sign-in-to-luis-portal).
-  - On the My Apps page, click New app for conversation and select Import as JSON.
+  - On the My Apps page, click **New app** for conversation and select **Import as JSON**.
   - Import the LaptopManual.json file located in the 'Models' folder of the sample project.
   - Train and publish your app. For more information, see the LUIS documentation on how to [train](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/luis-how-to-train) and [publish](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/publishapp) an app to the production environment.
 
   ### Retrieve application information from the LUIS.ai portal
   - Select your published LUIS app from [luis.ai](https://www.luis.ai/).
-  - With your published LUIS app open, select the MANAGE tab.
-  - Select the Settings tab on the left side and record the value shown for Application ID as <YOUR_APP_ID>.
-  - Select the Azure Resources tab on the left side and select the Authoring Resource group. Record the value shown for Location as <YOUR_REGION> and Primary Key as <YOUR_AUTHORING_KEY>.
+  - With your published LUIS app open, select the **MANAGE** tab.
+  - Select the **Settings** tab on the left side and record the value shown for Application ID as <YOUR_APP_ID>.
+  - Select the **Azure Resources** tab on the left side and select the **Authoring Resource** group. Record the value shown for Location as <YOUR_REGION> and Primary Key as <YOUR_AUTHORING_KEY>.
 
   ### Update the settings file
 
