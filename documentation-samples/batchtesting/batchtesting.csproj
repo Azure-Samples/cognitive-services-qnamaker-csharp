@@ -6,10 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.AI.Language.QuestionAnswering" Version="1.1.0-beta.1" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker" Version="3.0.0-preview.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="sampledata-cqa.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="sampledata.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

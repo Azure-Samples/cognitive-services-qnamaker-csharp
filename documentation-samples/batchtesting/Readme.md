@@ -1,6 +1,6 @@
 # Batch testing your knowledge base
 
-Batch testing is available from this source code or as a [downloadable executable zipped](https://aka.ms/qna_btzip ). The format of the command to run the batch test is:
+Batch testing is available from this source code. The format of the command to run the batch test is:
 
 ```console
 For Qna Maker GA: batchtesting.exe input.tsv https://YOUR-HOST.azurewebsites.net ENDPOINT-KEY out.tsv

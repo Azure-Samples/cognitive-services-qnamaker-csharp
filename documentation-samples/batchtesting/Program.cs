@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
 using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
-using Microsoft.Rest;
+using Azure.AI.Language.QuestionAnswering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace batchtesting
 
         static void Main(string[] args)
         {
-            if (args.Length != 4)
+            if (args.Length < 4)
             {
                 var exeName = "batchtesting.exe";
                 Console.WriteLine("For Qna Maker GA");
@@ -24,6 +24,8 @@ namespace batchtesting
                 Console.WriteLine("For QnA Maker managed (preview)");
                 Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <cs-hostname> <cs-endpointkey> <tsv-outputfile>");
                 Console.WriteLine($"{exeName} input.tsv https://myhostname.cognitiveservices.azure.com b0863a25azsxdcf0b6855e9e988805ed output.tsv");
+                Console.WriteLine($"Usage: {exeName} <tsv-inputfile> <cs-hostname> <cs-endpointkey> <tsv-outputfile>");
+                Console.WriteLine($"{exeName} input.tsv https://myhostname.cognitiveservices.azure.com b0863a25azsxdcf0b6855e9e988805ed output.tsv language");
                 Console.WriteLine();
 
                 return;
@@ -35,72 +37,166 @@ namespace batchtesting
             var endpointKey = args[i++];
             var outputFile = args[i++];
 
-            var isQnAMakerV2 = CheckForQnAMakerV2(runtimeHost);
-
             var inputQueries = File.ReadAllLines(inputFile);
             var inputQueryData = inputQueries.Select(x => GetTsvData(x)).ToList();
-
             IQnAMakerClient qnaMakerClient = null;
             QnAMakerRuntimeClient qnaMakerRuntimeClient = null;
+            QuestionAnsweringClient questionAnsweringClient = null;
 
-            if (isQnAMakerV2)
+
+            var isLanguage = false;
+            var isQnAMakerV2 = false;
+            if (args.Length == 5 && string.Equals(args[4], "language", StringComparison.OrdinalIgnoreCase))
             {
-                qnaMakerClient = GetQnAMakerClient(endpointKey, runtimeHost);
+                isLanguage = true;
+            }
+
+            if (isLanguage)
+            {
+                questionAnsweringClient = new QuestionAnsweringClient(new Uri(runtimeHost), new Azure.AzureKeyCredential(endpointKey));
             }
             else
             {
-                qnaMakerRuntimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeHost };
+                isQnAMakerV2 = CheckForQnAMakerV2(runtimeHost);
+
+                if (isQnAMakerV2)
+                {
+                    qnaMakerClient = GetQnAMakerClient(endpointKey, runtimeHost);
+                }
+                else
+                {
+                    qnaMakerRuntimeClient = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = runtimeHost };
+                }
             }
 
             var lineNumber = 0;
-            var answerSpanHeader = isQnAMakerV2 ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
+            var answerSpanHeader = isQnAMakerV2 || isLanguage ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
 
             File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore{answerSpanHeader}\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
+            if (isLanguage)
+            {
+                QueryKnowledgebases(questionAnsweringClient, inputQueryData, outputFile);
+            }
+            else
+            {
+                var watch = new Stopwatch();
+                watch.Start();
+                var maxLines = inputQueryData.Count;
+                foreach (var queryData in inputQueryData)
+                {
+                    try
+                    {
+                        lineNumber++;
+                        var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData, isQnAMakerV2);
+
+                        QnASearchResultList response = null;
+
+                        if (isQnAMakerV2)
+                        {
+                            response = qnaMakerClient.Knowledgebase.GenerateAnswerAsync(kbId, queryDto).Result;
+                        }
+                        else
+                        {
+                            response = qnaMakerRuntimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
+                        }
+
+                        var resultLine = new List<string>();
+                        resultLine.Add(lineNumber.ToString());
+                        resultLine.Add(kbId);
+                        resultLine.Add(queryDto.Question);
+
+                        // Add the first answer and its score
+                        var firstResult = response.Answers.FirstOrDefault();
+                        var answer = firstResult?.Answer?.Replace("\n", "\\n");
+
+                        resultLine.Add(answer);
+                        resultLine.Add(firstResult?.Score?.ToString());
+
+                        if (isQnAMakerV2 && firstResult?.AnswerSpan?.Text != null)
+                        {
+                            resultLine.Add(firstResult?.AnswerSpan?.Text);
+                            resultLine.Add(firstResult?.AnswerSpan?.Score?.ToString());
+                        }
+
+                        // Add Metadata
+                        var metaDataList = firstResult?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
+                        resultLine.Add(metaDataList == null ? string.Empty : string.Join("|", metaDataList));
+
+                        // Add the QnaId
+                        var firstQnaId = firstResult?.Id?.ToString();
+                        resultLine.Add(firstQnaId);
+
+                        // Add expected answer and label
+                        if (!string.IsNullOrWhiteSpace(expectedAnswerId))
+                        {
+                            resultLine.Add(expectedAnswerId);
+                            resultLine.Add(firstQnaId == expectedAnswerId ? "Correct" : "Incorrect");
+                        }
+
+                        var result = string.Join('\t', resultLine);
+                        File.AppendAllText(outputFile, $"{result}{Environment.NewLine}");
+                        PrintProgress(watch, lineNumber, maxLines);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error processing line : {lineNumber}, {ex}");
+                    }
+                }
+            }
+
+        }
+
+        private static (string, string, string) GetQueryKnowledgebasesRequest(List<string> queryData)
+        {
+            var (queryDto, projectName, expectedAnswerId) = GetQueryDTO(queryData, true);
+            return (queryDto.Question, projectName, expectedAnswerId);
+        }
+
+        private static void QueryKnowledgebases(QuestionAnsweringClient questionAnsweringClient, List<List<string>> inputQueryData, string outputFileName)
+        {
+
             var watch = new Stopwatch();
             watch.Start();
+
+
             var maxLines = inputQueryData.Count;
+            var lineNumber = 0;
             foreach (var queryData in inputQueryData)
             {
+                //var projectName = queryData.ElementAt(0);
+                //var question = queryData.ElementAt(1);
+                var (question, projectName, expectedAnswerId) = GetQueryKnowledgebasesRequest(queryData);
+
                 try
                 {
                     lineNumber++;
-                    var (queryDto, kbId, expectedAnswerId) = GetQueryDTO(queryData, isQnAMakerV2);
-
-                    QnASearchResultList response = null;
-
-                    if (isQnAMakerV2)
-                    {
-                        response = qnaMakerClient.Knowledgebase.GenerateAnswerAsync(kbId, queryDto).Result;
-                    }
-                    else
-                    {
-                        response = qnaMakerRuntimeClient.Runtime.GenerateAnswerAsync(kbId, queryDto).Result;
-                    }
+                    var answerResult = questionAnsweringClient.GetAnswers(question, new QuestionAnsweringProject(projectName, "production"));
+                   
 
                     var resultLine = new List<string>();
                     resultLine.Add(lineNumber.ToString());
-                    resultLine.Add(kbId);
-                    resultLine.Add(queryDto.Question);
+                    resultLine.Add(projectName);
+                    resultLine.Add(question);
 
                     // Add the first answer and its score
-                    var firstResult = response.Answers.FirstOrDefault();
+                    var firstResult = answerResult.Value.Answers.FirstOrDefault();
                     var answer = firstResult?.Answer?.Replace("\n", "\\n");
 
                     resultLine.Add(answer);
-                    resultLine.Add(firstResult?.Score?.ToString());
+                    resultLine.Add(firstResult?.Confidence?.ToString());
 
-                    if (isQnAMakerV2 && firstResult?.AnswerSpan?.Text != null) 
+                    if (firstResult?.ShortAnswer?.Text != null)
                     {
-                        resultLine.Add(firstResult?.AnswerSpan?.Text);
-                        resultLine.Add(firstResult?.AnswerSpan?.Score?.ToString());
+                        resultLine.Add(firstResult?.ShortAnswer?.Text);
+                        resultLine.Add(firstResult?.ShortAnswer?.Confidence?.ToString());
                     }
 
                     // Add Metadata
-                    var metaDataList =  firstResult?.Metadata?.Select(x => $"{x.Name}:{x.Value}")?.ToList();
+                    var metaDataList = firstResult?.Metadata?.Select(x => $"{x.Key}:{x.Value}")?.ToList();
                     resultLine.Add(metaDataList == null ? string.Empty : string.Join("|", metaDataList));
 
                     // Add the QnaId
-                    var firstQnaId = firstResult?.Id?.ToString();
+                    var firstQnaId = firstResult?.QnaId?.ToString();
                     resultLine.Add(firstQnaId);
 
                     // Add expected answer and label
@@ -111,7 +207,7 @@ namespace batchtesting
                     }
 
                     var result = string.Join('\t', resultLine);
-                    File.AppendAllText(outputFile, $"{result}{Environment.NewLine}");
+                    File.AppendAllText(outputFileName, $"{result}{Environment.NewLine}");
                     PrintProgress(watch, lineNumber, maxLines);
                 }
                 catch (Exception ex)
@@ -119,7 +215,6 @@ namespace batchtesting
                     Console.WriteLine($"Error processing line : {lineNumber}, {ex}");
                 }
             }
-
         }
 
         private static void PrintProgress(Stopwatch watch, int lineNumber, int maxLines)
