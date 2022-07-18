@@ -59,3 +59,5 @@ Use the following information to understand and implement the TSV format for bat
 |Expected answer ID|optional (only when expected answer ID is given)|
 |Judgment label|optional, values could be: correct or incorrect (only when expected answer is given)|
 
+## References
+[Language QuestionAnswering SDK Samples](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/cognitivelanguage/Azure.AI.Language.QuestionAnswering/samples)
