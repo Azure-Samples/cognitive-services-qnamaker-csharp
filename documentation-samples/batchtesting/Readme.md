@@ -2,6 +2,11 @@
 
 Batch testing is available from this source code. The format of the command to run the batch test is:
 
+
+```console
+For Language Custom question answering project: batchtesting.exe input.tsv https://YOUR-HOST.cognitiveservices.azure.com COGNITIVE-SERVICE-KEY out.tsv language
+```
+
 ```console
 For Qna Maker GA: batchtesting.exe input.tsv https://YOUR-HOST.azurewebsites.net ENDPOINT-KEY out.tsv
 ```
