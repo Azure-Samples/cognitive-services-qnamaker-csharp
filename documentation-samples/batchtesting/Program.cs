@@ -50,7 +50,7 @@ namespace batchtesting
                 isLanguage = true;
             }
 
-            var answerSpanHeader = isQnAMakerV2 || isLanguage ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
+            var answerSpanHeader = (isQnAMakerV2 || isLanguage) ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
             var KbIdOrProjectName = isLanguage ? "ProjectName" : "KbId"; 
             File.WriteAllText(outputFile, $"Line\t{KbIdOrProjectName}\tQuery\tAnswer\tScore{answerSpanHeader}\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
             if (isLanguage)
