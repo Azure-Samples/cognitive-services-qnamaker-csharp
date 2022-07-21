@@ -51,8 +51,8 @@ namespace batchtesting
             }
 
             var answerSpanHeader = isQnAMakerV2 || isLanguage ? "\tAnswerSpanText\tAnswerSpanScore" : string.Empty;
-
-            File.WriteAllText(outputFile, $"Line\tKbId\tQuery\tAnswer\tScore{answerSpanHeader}\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
+            var KbIdOrProjectName = isLanguage ? "ProjectName" : "KbId"; 
+            File.WriteAllText(outputFile, $"Line\t{KbIdOrProjectName}\tQuery\tAnswer\tScore{answerSpanHeader}\tMetadata\tAnswerId\tExpectedAnswerId\tLabel{Environment.NewLine}");
             if (isLanguage)
             {
                 QueryKnowledgebases(runtimeHost, endpointKey, inputQueryData, outputFile);
