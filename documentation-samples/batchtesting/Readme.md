@@ -41,8 +41,8 @@ Use the following information to understand and implement the TSV format for bat
 |Answer ID|Answer ID|
 |Score|Prediction score for answer. |
 |Metadata tags|associated with returned answer|
-|Expected answer ID|optional (only when expected answer ID is given in input file)|
-|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given in input file)|
+|Expected answer ID|optional (only when expected answer ID is given.)|
+|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given.)|
 
 ## TSV output fields for QnA Maker managed (preview)
 
@@ -56,8 +56,8 @@ Use the following information to understand and implement the TSV format for bat
 |AnswerSpanText|Precise short answer for the query, if present. |
 |AnswerSpanScore|Prediction score for short answer, if present. |
 |Metadata tags|associated with returned answer|
-|Expected answer ID|optional (only when expected answer ID is given in input file)|
-|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given in input file)|
+|Expected answer ID|optional (only when expected answer ID is given.)|
+|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given.)|
 
 ## TSV output fields for Language custom question answering project
 
@@ -71,8 +71,8 @@ Use the following information to understand and implement the TSV format for bat
 |AnswerSpanText|Precise short answer for the query, if present. |
 |AnswerSpanScore|Prediction score for short answer, if present. |
 |Metadata tags|associated with returned answer|
-|Expected answer ID|optional (only when expected answer ID is given in input file)|
-|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given in input file)|
+|Expected answer ID|optional (only when expected answer ID is given.)|
+|Judgment label|optional, values could be: correct or incorrect (only when expected answer id is given.)|
 
 ## References
 [Language QuestionAnswering SDK Samples](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/cognitivelanguage/Azure.AI.Language.QuestionAnswering/samples)
