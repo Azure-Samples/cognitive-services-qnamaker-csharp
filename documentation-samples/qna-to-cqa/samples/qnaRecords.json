@@ -1,0 +1,490 @@
+{
+    "metadata": {
+        "projectName": "Legacy-KB-1",
+        "description": "Legacy_KB#1",
+        "language": "en",
+        "multilingualResource": false,
+        "createdDateTime": "2022-03-14T18:30:34Z",
+        "lastModifiedDateTime": "2022-07-12T14:18:21Z",
+        "settings": {
+            "defaultAnswer": "No good match found in KB"
+        },
+        "synonyms": [
+            {
+                "alterations": [
+                    "wa",
+                    "washington",
+                    "washington state"
+                ]
+            },
+            {
+                "alterations": [
+                    "U.S",
+                    "usa",
+                    "united states of america"
+                ]
+            }
+        ],
+        "qnas": [
+            {
+                "id": 1959,
+                "answer": "You can migrate your knowledge base to another service. To migrate a knowledge base requires exporting from one knowledge base, then importing into another. [Click here to know more about migrating knowledge base](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/tutorials/migrate-knowledge-base).",
+                "source": "SampleActiveLearningImportTsv.tsv",
+                "sourceDisplayName": "",
+                "questions": [
+                    "How to migrate a knowledge base"
+                ],
+                "metadata": {
+                    "name": "multiturn end"
+                },
+                "dialog": {
+                    "isContextOnly": false,
+                    "prompts": []
+                },
+                "activeLearningSuggestions": [
+                    {
+                        "clusterHead": "issue exporting KB",
+                        "totalAutoSuggestedCount": 3,
+                        "totalUserSuggestedCount": 1,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "issue exporting KB",
+                                "autoSuggestedCount": 3,
+                                "userSuggestedCount": 1,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "is it possible to export the knowledge base ?",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 1,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "is it possible to export the knowledge base ?",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 1,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "i'm not able to export knowledge base",
+                        "totalAutoSuggestedCount": 2,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "i'm not able to export knowledge base",
+                                "autoSuggestedCount": 2,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "how to give permission to one kb?",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "how to give permission to one kb?",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "what file types can be uploaded to knowledge base",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "what file types can be uploaded to knowledge base",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "how do i export",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "how do i export",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "how do i import a file",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "how do i import a file",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "excel import",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "excel import",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "import .csv",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "import .csv",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "import not working",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "import not working",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "how can I import QnA file",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "how can I import QnA file",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "after i create a knowledge base, can i upload another file with more questions",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "after i create a knowledge base, can i upload another file with more questions",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "JavaScript is required",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "JavaScript is required",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "move",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "move",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    }
+                ],
+                "isDocumentText": false,
+                "lastUpdatedDateTime": "07/12/2022 14:18:18 +00:00"
+            },
+            {
+                "id": 2003,
+                "answer": "Do you have an error code or error message?",
+                "source": "SampleActiveLearningImportTsv.tsv",
+                "sourceDisplayName": "",
+                "questions": [
+                    "Getting an error message"
+                ],
+                "metadata": {
+                    "name": "multiturn end"
+                },
+                "dialog": {
+                    "isContextOnly": false,
+                    "prompts": []
+                },
+                "activeLearningSuggestions": [
+                    {
+                        "clusterHead": "I am having a problem",
+                        "totalAutoSuggestedCount": 13,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "I am having a problem",
+                                "autoSuggestedCount": 13,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "Learn about QnA Maker",
+                        "totalAutoSuggestedCount": 2,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "Learn about QnA Maker",
+                                "autoSuggestedCount": 2,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "Test failed",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "Test failed",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "it continues to give me error messages",
+                        "totalAutoSuggestedCount": 2,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "it continues to give me error messages",
+                                "autoSuggestedCount": 2,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "qna services",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "qna services",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "qna is super slow",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "qna is super slow",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "Error response",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "Error response",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "error ?",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 1,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "error ?",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 1,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "what is qnamaker",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "what is qnamaker",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "Error 404 Brain not found",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "Error 404 Brain not found",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "getting error while creating KB",
+                        "totalAutoSuggestedCount": 0,
+                        "totalUserSuggestedCount": 1,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "getting error while creating KB",
+                                "autoSuggestedCount": 0,
+                                "userSuggestedCount": 1,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "can i upload any document?",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "can i upload any document?",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "eror message found",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "eror message found",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "access qna maker database",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "access qna maker database",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "Text Error Message",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "Text Error Message",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    },
+                    {
+                        "clusterHead": "I cant find my free trail knowledge base",
+                        "totalAutoSuggestedCount": 1,
+                        "totalUserSuggestedCount": 0,
+                        "totalAutoSuggestionCountFromGenerativeModel": 0,
+                        "suggestedQuestions": [
+                            {
+                                "question": "I cant find my free trail knowledge base",
+                                "autoSuggestedCount": 1,
+                                "userSuggestedCount": 0,
+                                "autoSuggestionCountFromGenerativeModel": 0
+                            }
+                        ]
+                    }
+                ],
+                "isDocumentText": false,
+                "lastUpdatedDateTime": "07/12/2022 14:18:18 +00:00"
+            }
+        ]
+    }
