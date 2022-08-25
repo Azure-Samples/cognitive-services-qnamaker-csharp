@@ -11,10 +11,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="sampledata-cqa.tsv">
+    <None Update="samples\output.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\qnaLegacy-KbDetails.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="sampledata.tsv">
+    <None Update="samples\qnaLegacy-QnAs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\qnaLegacy-Synonyms.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\qnaRecords.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

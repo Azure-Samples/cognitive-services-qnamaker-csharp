@@ -1,0 +1,18 @@
+{
+  "id": "f25d0c14-777f-4ef9-9498-2ebc7f1de8e3",
+  "hostName": "https://qna-legacy-a11y.azurewebsites.net",
+  "lastAccessedTimestamp": "2022-07-12T14:03:56Z",
+  "lastChangedTimestamp": "2022-07-12T14:04:01Z",
+  "lastPublishedTimestamp": "2022-07-08T17:44:54Z",
+  "name": "new",
+  "userId": "e39de12d5a6c42049d4f30d3acbd5ab8",
+  "urls": [],
+  "sources": [
+    "SampleActiveLearningImportTsv.tsv"
+  ],
+  "language": "English",
+  "enableHierarchicalExtraction": true,
+  "defaultAnswerUsedForExtraction": "choose",
+  "createdTimestamp": "2022-06-20T05:54:09Z",
+  "docSearchSources": []
+}

@@ -1,0 +1,466 @@
+{
+  "qnaDocuments": [
+    {
+      "id": 283,
+      "answer": "You can migrate your knowledge base to another service. To migrate a knowledge base requires exporting from one knowledge base, then importing into another. [Click here to know more about migrating knowledge base](https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/tutorials/migrate-knowledge-base).",
+      "source": "SampleActiveLearningImport.tsv",
+      "questions": [
+        "How to migrate a knowledge base"
+      ],
+      "metadata": [
+        {
+          "name": "name",
+          "value": "multiturn end"
+        }
+      ],
+      "alternateQuestionClusters": [
+        {
+          "clusterHead": "issue exporting KB",
+          "totalAutoSuggestedCount": 3,
+          "totalUserSuggestedCount": 1,
+          "alternateQuestionList": [
+            {
+              "question": "issue exporting KB",
+              "autoSuggestedCount": 3,
+              "userSuggestedCount": 1
+            }
+          ]
+        },
+        {
+          "clusterHead": "is it possible to export the knowledge base ?",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 1,
+          "alternateQuestionList": [
+            {
+              "question": "is it possible to export the knowledge base ?",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 1
+            }
+          ]
+        },
+        {
+          "clusterHead": "i'm not able to export knowledge base",
+          "totalAutoSuggestedCount": 2,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "i'm not able to export knowledge base",
+              "autoSuggestedCount": 2,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "how to give permission to one kb?",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "how to give permission to one kb?",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "what file types can be uploaded to knowledge base",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "what file types can be uploaded to knowledge base",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "how do i export",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "how do i export",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "how do i import a file",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "how do i import a file",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "excel import",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "excel import",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "import .csv",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "import .csv",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "import not working",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "import not working",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "how can I import QnA file",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "how can I import QnA file",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "after i create a knowledge base, can i upload another file with more questions",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "after i create a knowledge base, can i upload another file with more questions",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "JavaScript is required",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "JavaScript is required",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "move",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "move",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        }
+      ],
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "parentQnaIds": [
+        286
+      ],
+      "lastUpdatedTimestamp": "2022-07-26T09:31:57.418+00:00",
+      "isDocumentText": false,
+      "extractionConfidence": -1.0
+    },
+    {
+      "id": 284,
+      "answer": "Do you have an error code or error message?",
+      "source": "SampleActiveLearningImport.tsv",
+      "questions": [
+        "Getting an error message"
+      ],
+      "metadata": [
+        {
+          "name": "name",
+          "value": "multiturn end"
+        }
+      ],
+      "alternateQuestionClusters": [
+        {
+          "clusterHead": "I am having a problem",
+          "totalAutoSuggestedCount": 13,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "I am having a problem",
+              "autoSuggestedCount": 13,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "Learn about QnA Maker",
+          "totalAutoSuggestedCount": 2,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "Learn about QnA Maker",
+              "autoSuggestedCount": 2,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "Test failed",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "Test failed",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "it continues to give me error messages",
+          "totalAutoSuggestedCount": 2,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "it continues to give me error messages",
+              "autoSuggestedCount": 2,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "qna services",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "qna services",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "qna is super slow",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "qna is super slow",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "Error response",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "Error response",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "error ?",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 1,
+          "alternateQuestionList": [
+            {
+              "question": "error ?",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 1
+            }
+          ]
+        },
+        {
+          "clusterHead": "what is qnamaker",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "what is qnamaker",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "Error 404 Brain not found",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "Error 404 Brain not found",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "getting error while creating KB",
+          "totalAutoSuggestedCount": 0,
+          "totalUserSuggestedCount": 1,
+          "alternateQuestionList": [
+            {
+              "question": "getting error while creating KB",
+              "autoSuggestedCount": 0,
+              "userSuggestedCount": 1
+            }
+          ]
+        },
+        {
+          "clusterHead": "can i upload any document?",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "can i upload any document?",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "eror message found",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "eror message found",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "access qna maker database",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "access qna maker database",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "Text Error Message",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "Text Error Message",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        },
+        {
+          "clusterHead": "I cant find my free trail knowledge base",
+          "totalAutoSuggestedCount": 1,
+          "totalUserSuggestedCount": 0,
+          "alternateQuestionList": [
+            {
+              "question": "I cant find my free trail knowledge base",
+              "autoSuggestedCount": 1,
+              "userSuggestedCount": 0
+            }
+          ]
+        }
+      ],
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "parentQnaIds": [
+        286
+      ],
+      "lastUpdatedTimestamp": "2022-07-26T09:31:57.418+00:00",
+      "isDocumentText": false,
+      "extractionConfidence": -1.0
+    },
+    {
+      "id": 285,
+      "answer": "hello",
+      "source": "SampleActiveLearningImport.tsv",
+      "questions": [
+        "hi",
+        "hello",
+        "aloha",
+        "namaste"
+      ],
+      "metadata": [],
+      "alternateQuestionClusters": [],
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "lastUpdatedTimestamp": "2022-07-26T09:31:57.418+00:00",
+      "isDocumentText": false,
+      "extractionConfidence": -1.0
+    },
+    {
+      "id": 286,
+      "answer": "I am QnA Maker Help bot. How can I help you?",
+      "source": "SampleActiveLearningImport.tsv",
+      "questions": [
+        "who are you?",
+        "help",
+        "Using QnA Maker"
+      ],
+      "metadata": [],
+      "alternateQuestionClusters": [],
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 283,
+            "displayText": "Do you have a KB to migrate?"
+          },
+          {
+            "displayOrder": 0,
+            "qnaId": 284,
+            "displayText": "Did you get an error?"
+          }
+        ]
+      },
+      "lastUpdatedTimestamp": "2022-07-26T09:31:57.418+00:00",
+      "isDocumentText": false,
+      "extractionConfidence": -1.0
+    }
+  ]
+}
